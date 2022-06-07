@@ -1,12 +1,14 @@
 package com.salvatorechiacchio.mygym.component;
 
-import com.flaminiovilla.geopic.exception.UtilsException;
+
+import com.salvatorechiacchio.mygym.exception.UtilsException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.flaminiovilla.geopic.exception.UtilsException.utilsExceptionCode.DATA_WRONG_FORMAT;
+import static com.salvatorechiacchio.mygym.exception.UtilsException.utilsExceptionCode.DATA_WRONG_FORMAT;
+
 
 public class Utils {
 
