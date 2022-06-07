@@ -75,43 +75,12 @@ public class UserRestController {
       return userHelper.registerAdmin(userDTO);
    }
 
-   /** Dati per register nel seguente formato
-    * Admin secretary puo' essere registrato solo da admin , deve quindi specificare la regione
-    *{i
-    *     "email" : "viflaadminsecretary@gmail.com",
-    *     "password" : "flaminio",
-    *     "firstName" : "flaminio",
-    *     "lastName" : "villa",
-    *     "regionId" : 3
-    * }
-    * */
-   @PostMapping("/register/adminSecretary")
-   public User registerAdminSecretary(@Valid @RequestBody UserDTO userDTO) {
-      setUser(userDTO);
-
-      return userHelper.registerAdminSecretary(userDTO);
-   }
-
-   /** Dati per register nel seguente formato
-    *{
-    *     "email" : "viflaadminsecretary@gmail.com",
-    *     "password" : "flaminio",
-    *     "role" : "USER" ,
-    *     "firstName" : "flaminio",
-    *     "lastName" : "villa",
-    *     "region" : 3
-    * }
-    * */
-   @PostMapping("/register/secretary")
-   public User registerSecretary(@Valid @RequestBody UserDTO userDTO) {
-      setUser(userDTO);
-      return userHelper.registerSecretary(userDTO);
-   }
 
    private void setUser(UserDTO userDTO){
       Optional<User> userLogged = userService.getUserWithAuthorities();
       if (userLogged.isPresent())
-         userDTO.callUser = userLogged.get();
+         //userDTO.callUser = userLogged.get();
+         return;
       else
          throw new UserException(USER_NOT_LOGGED_IN);
    }
