@@ -50,5 +50,5 @@ public class Palestra {
     @NotNull
     private String longitudine;
 
-
+    private boolean abilitato = false;
 }

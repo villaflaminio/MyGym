@@ -1,12 +1,9 @@
 package com.salvatorechiacchio.mygym.service;
 
-import com.salvatorechiacchio.mygym.model.Abbonamento;
-import com.salvatorechiacchio.mygym.model.Sensore;
-import com.salvatorechiacchio.mygym.model.User;
+
 import com.salvatorechiacchio.mygym.model.dto.PalestraDto;
 import com.salvatorechiacchio.mygym.model.Palestra;
 import com.salvatorechiacchio.mygym.repository.PalestraRepository;
-import com.salvatorechiacchio.mygym.repository.SensoreRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
@@ -28,15 +25,11 @@ public class PalestraService {
     @Autowired
     private PalestraRepository palestraRepository;
 
-    @Autowired
-    private SensoreRepository sensoreRepository;
-
     public Palestra save(PalestraDto palestraDto) {
         try {
-            Sensore sensore = sensoreRepository.findById(palestraDto.getIdSensore()).orElseThrow(() -> new Exception("sensore non trovato"));
             Palestra palestra = new Palestra();
             BeanUtils.copyProperties(palestraDto, palestra);
-            palestra.setSensore(sensore);
+            palestra.setAbilitato(true);
             return palestraRepository.save(palestra);
         }catch (Exception e){
             log.error("errore salvataggio palestra", e);
@@ -44,7 +37,9 @@ public class PalestraService {
         }
     }
     public void deleteById(Long id) {
-        palestraRepository.deleteById(id);
+        Palestra palestra = palestraRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+        palestra.setAbilitato(false);
+        palestraRepository.save(palestra);
     }
     public Palestra findById(Long id) {
         return palestraRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
@@ -52,11 +47,11 @@ public class PalestraService {
     public List<Palestra> findAll() {
         return palestraRepository.findAll();
     }
-    public Palestra update(Palestra palestra, Long id) {
+    public Palestra update(PalestraDto palestraDto, Long id) {
         Optional<Palestra> palestraOld = palestraRepository.findById(id);
-        palestra.setId(id);
         if (palestraOld.isPresent()) {
-            copyNonNullProperties(palestra, palestraOld.get());
+            copyNonNullProperties(palestraDto, palestraOld.get());
+            palestraOld.get().setId(id);
             return palestraRepository.save(palestraOld.get());
         }
         else {

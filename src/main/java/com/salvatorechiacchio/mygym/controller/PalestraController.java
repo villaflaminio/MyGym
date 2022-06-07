@@ -46,7 +46,7 @@ public class PalestraController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody @Validated PalestraDto palestraDto, @PathVariable("id") Long id) {
+    public ResponseEntity<Void> update(@RequestBody PalestraDto palestraDto, @PathVariable("id") Long id) {
         palestraService.update(palestraDto, id);
         return ResponseEntity.ok().build();
     }

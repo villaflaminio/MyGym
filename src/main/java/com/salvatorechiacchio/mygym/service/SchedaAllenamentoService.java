@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -43,6 +44,10 @@ public class SchedaAllenamentoService {
 
     public void deleteById(Long id) {
         schedaAllenamentoRepository.deleteById(id);
+    }
+
+    public List<SchedaAllenamento> findAll() {
+        return schedaAllenamentoRepository.findAll();
     }
 
     public SchedaAllenamento findById(Long id) {

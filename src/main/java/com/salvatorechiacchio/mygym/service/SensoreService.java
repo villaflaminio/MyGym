@@ -30,7 +30,7 @@ public class SensoreService {
 
     public Sensore save(SensoreDto sensoreDto) {
         try {
-            Palestra palestra = palestraRepository.findById(sensoreDto.getIdPalestra()).orElseThrow(() -> new Exception("sensore non trovato"));
+            Palestra palestra = palestraRepository.findById(sensoreDto.getIdPalestra()).orElseThrow(() -> new Exception("palestra non trovato"));
             Sensore sensore = new Sensore();
             BeanUtils.copyProperties(sensoreDto, sensore);
             sensore.setPalestra(palestra);

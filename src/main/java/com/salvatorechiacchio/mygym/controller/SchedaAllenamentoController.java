@@ -1,5 +1,6 @@
 package com.salvatorechiacchio.mygym.controller;
 
+import com.salvatorechiacchio.mygym.model.SchedaAllenamento;
 import com.salvatorechiacchio.mygym.model.dto.SchedaAllenamentoDto;
 import com.salvatorechiacchio.mygym.service.SchedaAllenamentoService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,11 @@ public class SchedaAllenamentoController {
     @Autowired
     private SchedaAllenamentoService schedaAllenamentoService;
 
+    @GetMapping("")
+    public ResponseEntity<?> findAll() {
+        return ResponseEntity.ok(schedaAllenamentoService.findAll());
+    }
+
     @PostMapping
     public ResponseEntity<Void> save(@RequestBody @Validated SchedaAllenamentoDto schedaAllenamentoDto) {
         schedaAllenamentoService.save(schedaAllenamentoDto);
@@ -25,8 +31,8 @@ public class SchedaAllenamentoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SchedaAllenamentoDto> findById(@PathVariable("id") Long id) {
-        SchedaAllenamentoDto schedaAllenamento = schedaAllenamentoService.findById(id);
+    public ResponseEntity<SchedaAllenamento> findById(@PathVariable("id") Long id) {
+        SchedaAllenamento schedaAllenamento = schedaAllenamentoService.findById(id);
         return ResponseEntity.ok(schedaAllenamento);
     }
 
@@ -41,8 +47,8 @@ public class SchedaAllenamentoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody @Validated SchedaAllenamentoDto schedaAllenamentoDto, @PathVariable("id") Long id) {
-        schedaAllenamentoService.update(schedaAllenamentoDto, id);
+    public ResponseEntity<Void> update(@RequestBody SchedaAllenamento schedaAllenamento, @PathVariable("id") Long id) {
+        schedaAllenamentoService.update(schedaAllenamento, id);
         return ResponseEntity.ok().build();
     }
 }

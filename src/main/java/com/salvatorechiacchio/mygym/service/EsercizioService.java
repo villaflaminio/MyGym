@@ -1,5 +1,6 @@
 package com.salvatorechiacchio.mygym.service;
 
+import com.salvatorechiacchio.mygym.model.Abbonamento;
 import com.salvatorechiacchio.mygym.model.dto.EsercizioDto;
 import com.salvatorechiacchio.mygym.model.Esercizio;
 import com.salvatorechiacchio.mygym.repository.EsercizioRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -36,6 +38,10 @@ public class EsercizioService {
 
     public void deleteById(Long id) {
         esercizioRepository.deleteById(id);
+    }
+
+    public List<Esercizio> findAll() {
+        return esercizioRepository.findAll();
     }
 
     public Esercizio findById(Long id) {

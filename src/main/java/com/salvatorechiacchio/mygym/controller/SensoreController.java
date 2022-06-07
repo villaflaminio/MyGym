@@ -1,5 +1,6 @@
 package com.salvatorechiacchio.mygym.controller;
 
+import com.salvatorechiacchio.mygym.model.Sensore;
 import com.salvatorechiacchio.mygym.model.dto.SensoreDto;
 import com.salvatorechiacchio.mygym.service.SensoreService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +26,8 @@ public class SensoreController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SensoreDto> findById(@PathVariable("id") Long id) {
-        SensoreDto sensore = sensoreService.findById(id);
+    public ResponseEntity<Sensore> findById(@PathVariable("id") Long id) {
+        Sensore sensore = sensoreService.findById(id);
         return ResponseEntity.ok(sensore);
     }
 
@@ -41,8 +42,8 @@ public class SensoreController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody @Validated SensoreDto sensoreDto, @PathVariable("id") Long id) {
-        sensoreService.update(sensoreDto, id);
+    public ResponseEntity<Void> update(@RequestBody Sensore sensore, @PathVariable("id") Long id) {
+        sensoreService.update(sensore, id);
         return ResponseEntity.ok().build();
     }
 }
