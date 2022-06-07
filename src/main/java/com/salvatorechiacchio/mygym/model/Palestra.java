@@ -19,7 +19,6 @@ import java.util.List;
 @Builder
 public class Palestra {
 
-    @JsonIgnore
     @Id
     @GeneratedValue
     private Long id;
@@ -51,5 +50,5 @@ public class Palestra {
     @NotNull
     private String longitudine;
 
-    private boolean abilitato = false;
+    private Boolean abilitato;
 }

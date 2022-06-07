@@ -10,5 +10,5 @@ public class PalestraDtoFilter implements Serializable {
     private String indirizzo;
     private String latitudine;
     private String longitudine;
-    private boolean abilitato = false;
+    private Boolean abilitato ;
 }

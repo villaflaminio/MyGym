@@ -9,5 +9,5 @@ public class SensoreDtoFilter implements Serializable {
     private Long id;
     private String nome;
     private Float misurazione;
-    private long idPalestra;
+    private Long idPalestra;
 }
