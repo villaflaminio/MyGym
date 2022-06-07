@@ -26,6 +26,11 @@ public class AbbonamentoController {
     @Autowired
     AbbonamentoService abbonamentoService;
 
+    @GetMapping("")
+    public ResponseEntity<?> findAll() {
+        return ResponseEntity.ok(abbonamentoService.findAll());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Abbonamento> findById(@PathVariable("id") Long id) {
         Abbonamento abbonamento = abbonamentoService.findById(id);

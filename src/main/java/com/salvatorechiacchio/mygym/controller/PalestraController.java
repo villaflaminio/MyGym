@@ -5,6 +5,7 @@ import com.salvatorechiacchio.mygym.mapper.PalestraMapper;
 import com.salvatorechiacchio.mygym.model.Palestra;
 import com.salvatorechiacchio.mygym.service.PalestraService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -19,14 +20,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@RequestMapping("/palestra")
+@RequestMapping("api/palestra")
 @RestController
 @Slf4j
 public class PalestraController {
-    private final PalestraService palestraService;
+    @Autowired
+    private  PalestraService palestraService;
 
-    public PalestraController(PalestraService palestraService) {
-        this.palestraService = palestraService;
+    @GetMapping("")
+    public ResponseEntity<?> findAll() {
+        return ResponseEntity.ok(palestraService.findAll());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Palestra> findById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(palestraService.findById(id));
     }
 
     @PostMapping
@@ -35,11 +42,7 @@ public class PalestraController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PalestraDto> findById(@PathVariable("id") Long id) {
-        PalestraDto palestra = palestraService.findById(id);
-        return ResponseEntity.ok(palestra);
-    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
@@ -49,12 +52,6 @@ public class PalestraController {
         });
         palestraService.deleteById(id);
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/page-query")
-    public ResponseEntity<Page<PalestraDto>> pageQuery(PalestraDto palestraDto, @PageableDefault(sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<PalestraDto> palestraPage = palestraService.findByCondition(palestraDto, pageable);
-        return ResponseEntity.ok(palestraPage);
     }
 
     @PutMapping("/{id}")
