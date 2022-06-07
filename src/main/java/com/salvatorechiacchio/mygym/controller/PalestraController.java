@@ -30,9 +30,8 @@ public class PalestraController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Validated PalestraDto palestraDto) {
-        palestraService.save(palestraDto);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Palestra> save(@RequestBody @Validated PalestraDto palestraDto) {
+        return ResponseEntity.ok(palestraService.save(palestraDto));
     }
 
     @DeleteMapping("/{id}")
