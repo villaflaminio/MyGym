@@ -1,9 +1,11 @@
 package com.salvatorechiacchio.mygym.dto;
 
+import lombok.Data;
+
 import javax.validation.constraints.Size;
 
-@ApiModel()
-public class EsercizioDto extends AbstractDto<Long> {
+@Data
+public class EsercizioDto{
     private Long id;
     private List<SchedaAllenamento> schedeAllenamento;
     @Size(max = 50)

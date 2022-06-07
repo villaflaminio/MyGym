@@ -12,14 +12,14 @@ public class AbbonamentoDto implements Serializable {
     private final Long id;
     @NotNull
     @Size(min = 1, max = 50)
-    private  String nome;
-    private  float costo;
+    private String nome;
+    private float costo;
     @NotNull
-    private  LocalDate dataInizio;
+    private LocalDate dataInizio;
     @NotNull
-    private  LocalDate dataFine;
-    private  boolean pagato;
+    private LocalDate dataFine;
+    private boolean pagato;
 
-    private  long idUtente;
-    private  long idPalestra;
+    private long idUtente;
+    private long idPalestra;
 }

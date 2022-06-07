@@ -1,34 +1,26 @@
 package com.salvatorechiacchio.mygym.controller;
 
 import com.salvatorechiacchio.mygym.dto.SensoreDto;
-import com.salvatorechiacchio.mygym.mapper.SensoreMapper;
-import com.salvatorechiacchio.mygym.model.Sensore;
 import com.salvatorechiacchio.mygym.service.SensoreService;
-import com.sun.tools.javac.util.DefinedBy.Api;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-@RequestMapping("/sensore")
+@RequestMapping("/api/sensore")
 @RestController
 @Slf4j
-@Api("sensore")
 public class SensoreController {
-    private final SensoreService sensoreService;
-
-    public SensoreController(SensoreService sensoreService) {
-        this.sensoreService = sensoreService;
-    }
+    @Autowired
+    private SensoreService sensoreService;
 
     @PostMapping
     public ResponseEntity<Void> save(@RequestBody @Validated SensoreDto sensoreDto) {
@@ -50,12 +42,6 @@ public class SensoreController {
         });
         sensoreService.deleteById(id);
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/page-query")
-    public ResponseEntity<Page<SensoreDto>> pageQuery(SensoreDto sensoreDto, @PageableDefault(sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<SensoreDto> sensorePage = sensoreService.findByCondition(sensoreDto, pageable);
-        return ResponseEntity.ok(sensorePage);
     }
 
     @PutMapping("/{id}")

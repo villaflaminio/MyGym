@@ -57,6 +57,20 @@ public class AbbonamentoService {
     public List<Abbonamento> findAll() {
         return repository.findAll();
     }
+
+    public Abbonamento update(Abbonamento abbonamento, Long id) {
+        Optional<Abbonamento> abbonamentoOld = repository.findById(id);
+        abbonamento.setId(id);
+        if (abbonamentoOld.isPresent()) {
+            copyNonNullProperties(abbonamento, abbonamentoOld.get());
+            return  repository.save(abbonamentoOld.get());
+        }
+        else {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    // ===========================================================================
     public static void copyNonNullProperties(Object src, Object target) {
         BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
     }
@@ -71,17 +85,5 @@ public class AbbonamentoService {
         }
         String[] result = new String[emptyNames.size()];
         return emptyNames.toArray(result);
-    }
-    public Abbonamento update(Abbonamento abbonamento, Long id) {
-        Optional<Abbonamento> abbonamentoOld = repository.findById(id);
-        abbonamento.setId(id);
-        if (abbonamentoOld.isPresent()) {
-            copyNonNullProperties(abbonamento, abbonamentoOld.get());
-            return  repository.save(abbonamentoOld.get());
-        }
-        else {
-            throw new ResourceNotFoundException();
-        }
-
     }
 }

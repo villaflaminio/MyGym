@@ -43,8 +43,6 @@ public class AbbonamentoController {
         return ResponseEntity.ok(abbonamentoService.save(abbonamentoDto));
     }
 
-
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         Optional.ofNullable(abbonamentoService.findById(id)).orElseThrow(() -> {
@@ -53,7 +51,6 @@ public class AbbonamentoController {
         abbonamentoService.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@RequestBody Abbonamento abbonamento, @PathVariable("id") Long id) {
