@@ -1,4 +1,4 @@
-package com.salvatorechiacchio.mygym.security.exception;
+package com.salvatorechiacchio.mygym.exception;
 
 public class UserException extends RuntimeException{
 

@@ -7,7 +7,7 @@ import com.salvatorechiacchio.mygym.model.dto.AbbonamentoDto;
 import com.salvatorechiacchio.mygym.model.dto.filter.AbbonamentoDtoFilter;
 import com.salvatorechiacchio.mygym.repository.AbbonamentoRepository;
 import com.salvatorechiacchio.mygym.repository.PalestraRepository;
-import com.salvatorechiacchio.mygym.security.repository.UserRepository;
+import com.salvatorechiacchio.mygym.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;

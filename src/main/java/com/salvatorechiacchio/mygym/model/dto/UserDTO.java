@@ -1,4 +1,4 @@
-package com.salvatorechiacchio.mygym.security.rest.dto;
+package com.salvatorechiacchio.mygym.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.salvatorechiacchio.mygym.model.User;

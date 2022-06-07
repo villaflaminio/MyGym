@@ -1,4 +1,4 @@
-package com.salvatorechiacchio.mygym.security.config;
+package com.salvatorechiacchio.mygym.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

@@ -1,7 +1,7 @@
-package com.salvatorechiacchio.mygym.security.rest;
+package com.salvatorechiacchio.mygym.controller;
 
 import com.salvatorechiacchio.mygym.model.User;
-import com.salvatorechiacchio.mygym.security.service.UserService;
+import com.salvatorechiacchio.mygym.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

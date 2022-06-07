@@ -1,4 +1,4 @@
-package com.salvatorechiacchio.mygym.security.rest;
+package com.salvatorechiacchio.mygym.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

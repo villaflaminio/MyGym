@@ -1,8 +1,8 @@
-package com.salvatorechiacchio.mygym.security.config;
+package com.salvatorechiacchio.mygym.config;
 
 
-import com.salvatorechiacchio.mygym.security.exception.JwtAccessDeniedHandler;
-import com.salvatorechiacchio.mygym.security.exception.JwtAuthenticationEntryPoint;
+import com.salvatorechiacchio.mygym.exception.JwtAccessDeniedHandler;
+import com.salvatorechiacchio.mygym.exception.JwtAuthenticationEntryPoint;
 import com.salvatorechiacchio.mygym.security.jwt.JWTConfigurer;
 import com.salvatorechiacchio.mygym.security.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;

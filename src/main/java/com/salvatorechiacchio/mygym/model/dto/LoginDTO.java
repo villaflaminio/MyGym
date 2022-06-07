@@ -1,4 +1,4 @@
-package com.salvatorechiacchio.mygym.security.rest.dto;
+package com.salvatorechiacchio.mygym.model.dto;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

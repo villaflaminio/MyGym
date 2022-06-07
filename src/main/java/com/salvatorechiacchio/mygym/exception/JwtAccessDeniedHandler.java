@@ -1,4 +1,4 @@
-package com.salvatorechiacchio.mygym.security.exception;
+package com.salvatorechiacchio.mygym.exception;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;

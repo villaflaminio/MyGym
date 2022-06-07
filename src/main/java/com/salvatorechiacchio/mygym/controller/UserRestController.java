@@ -1,13 +1,13 @@
-package com.salvatorechiacchio.mygym.security.rest;
+package com.salvatorechiacchio.mygym.controller;
 
 
-import com.salvatorechiacchio.mygym.security.exception.UserException;
+import com.salvatorechiacchio.mygym.exception.UserException;
 import com.salvatorechiacchio.mygym.security.helper.UserHelper;
 import com.salvatorechiacchio.mygym.model.User;
-import com.salvatorechiacchio.mygym.security.repository.UserRepository;
-import com.salvatorechiacchio.mygym.security.rest.dto.LoginDTO;
-import com.salvatorechiacchio.mygym.security.rest.dto.UserDTO;
-import com.salvatorechiacchio.mygym.security.service.UserService;
+import com.salvatorechiacchio.mygym.repository.UserRepository;
+import com.salvatorechiacchio.mygym.model.dto.LoginDTO;
+import com.salvatorechiacchio.mygym.model.dto.UserDTO;
+import com.salvatorechiacchio.mygym.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Optional;
 
-import static com.salvatorechiacchio.mygym.security.exception.UserException.userExceptionCode.USER_NOT_LOGGED_IN;
+import static com.salvatorechiacchio.mygym.exception.UserException.userExceptionCode.USER_NOT_LOGGED_IN;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.salvatorechiacchio.mygym.security.repository;
+package com.salvatorechiacchio.mygym.repository;
 
 import com.salvatorechiacchio.mygym.model.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;

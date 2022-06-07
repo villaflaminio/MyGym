@@ -3,15 +3,15 @@ package com.salvatorechiacchio.mygym.security.helper;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.google.common.base.Preconditions;
-import com.salvatorechiacchio.mygym.security.exception.UserException;
+import com.salvatorechiacchio.mygym.exception.UserException;
 import com.salvatorechiacchio.mygym.security.jwt.JWTFilter;
 import com.salvatorechiacchio.mygym.security.jwt.TokenProvider;
 import com.salvatorechiacchio.mygym.model.Authority;
 import com.salvatorechiacchio.mygym.model.User;
-import com.salvatorechiacchio.mygym.security.repository.AuthorityRepository;
-import com.salvatorechiacchio.mygym.security.repository.UserRepository;
-import com.salvatorechiacchio.mygym.security.rest.dto.LoginDTO;
-import com.salvatorechiacchio.mygym.security.rest.dto.UserDTO;
+import com.salvatorechiacchio.mygym.repository.AuthorityRepository;
+import com.salvatorechiacchio.mygym.repository.UserRepository;
+import com.salvatorechiacchio.mygym.model.dto.LoginDTO;
+import com.salvatorechiacchio.mygym.model.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,8 +29,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static com.salvatorechiacchio.mygym.security.exception.UserException.userExceptionCode.AUTHORITY_NOT_EXIST;
-import static com.salvatorechiacchio.mygym.security.exception.UserException.userExceptionCode.USER_ALREADY_EXISTS;
+import static com.salvatorechiacchio.mygym.exception.UserException.userExceptionCode.AUTHORITY_NOT_EXIST;
+import static com.salvatorechiacchio.mygym.exception.UserException.userExceptionCode.USER_ALREADY_EXISTS;
 
 
 @Component
