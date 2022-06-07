@@ -1,5 +1,6 @@
 package com.salvatorechiacchio.mygym.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -18,7 +19,6 @@ import java.util.List;
 @Builder
 public class SchedaAllenamento {
 
-    @JsonIgnore
     @Id
     @GeneratedValue
     private Long id;
@@ -33,6 +33,7 @@ public class SchedaAllenamento {
 
     @ManyToOne
     @JoinColumn(name="user_id")
+    @JsonBackReference(value = "utente")
     private User utente;
 
 

@@ -1,6 +1,6 @@
 package com.salvatorechiacchio.mygym.service;
 
-import com.salvatorechiacchio.mygym.model.Palestra;
+import com.salvatorechiacchio.mygym.model.Esercizio;
 import com.salvatorechiacchio.mygym.model.User;
 import com.salvatorechiacchio.mygym.model.dto.SchedaAllenamentoDto;
 import com.salvatorechiacchio.mygym.model.SchedaAllenamento;
@@ -33,23 +33,36 @@ public class SchedaAllenamentoService {
     private SchedaAllenamentoRepository schedaAllenamentoRepository;
 
     @Autowired
+    private EsercizioService esercizioService;
+    @Autowired
     private UserRepository userRepository;
 
     public SchedaAllenamento save(SchedaAllenamentoDto schedaAllenamentoDto) {
+
         try {
             User user = userRepository.findById(schedaAllenamentoDto.getIdUtente()).orElseThrow(() -> new Exception("user non trovato"));
+
             SchedaAllenamento schedaAllenamento = new SchedaAllenamento();
             BeanUtils.copyProperties(schedaAllenamentoDto, schedaAllenamento);
+            List<Esercizio> esercizi = esercizioService.getAllByIdList(schedaAllenamentoDto.getIdEsercizi());
+            schedaAllenamento.setEsercizi(esercizi);
             schedaAllenamento.setUtente(user);
+
             return schedaAllenamentoRepository.save(schedaAllenamento);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("errore salvataggio scheda allenamento", e);
             throw new RuntimeException(e);
         }
     }
 
     public void deleteById(Long id) {
-        schedaAllenamentoRepository.deleteById(id);
+        SchedaAllenamento schedaAllenamento = schedaAllenamentoRepository.findById(id).orElseThrow(() -> {
+            log.error("Unable to delete non-existent data！");
+            return new ResourceNotFoundException();
+        });
+        schedaAllenamento.setEsercizi(null);
+        schedaAllenamento.setUtente(null);
+        schedaAllenamentoRepository.delete(schedaAllenamento);
     }
 
     public List<SchedaAllenamento> findAll() {
@@ -60,15 +73,26 @@ public class SchedaAllenamentoService {
         return schedaAllenamentoRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
-    public SchedaAllenamento update(SchedaAllenamento schedaAllenamento, Long id) {
+    public SchedaAllenamento update(SchedaAllenamentoDto schedaAllenamentoDto, Long id) {
         Optional<SchedaAllenamento> schedaAllenamentoOld = schedaAllenamentoRepository.findById(id);
-        schedaAllenamento.setId(id);
+        schedaAllenamentoDto.setId(id);
+        try {
         if (schedaAllenamentoOld.isPresent()) {
-            copyNonNullProperties(schedaAllenamento, schedaAllenamentoOld.get());
+            copyNonNullProperties(schedaAllenamentoDto, schedaAllenamentoOld.get());
+
+            User user = userRepository.findById(schedaAllenamentoDto.getIdUtente()).orElseThrow(() -> new Exception("user non trovato"));
+            List<Esercizio> esercizi = esercizioService.getAllByIdList(schedaAllenamentoDto.getIdEsercizi());
+            schedaAllenamentoOld.get().setEsercizi(esercizi);
+            schedaAllenamentoOld.get().setUtente(user);
+            schedaAllenamentoOld.get().setId(id);
             return schedaAllenamentoRepository.save(schedaAllenamentoOld.get());
-        }
-        else {
+        }else {
             throw new ResourceNotFoundException();
+        }
+        } catch (Exception e) {
+            log.error("errore aggiornamento scheda allenamento", e);
+            throw new RuntimeException(e);
+
         }
     }
 

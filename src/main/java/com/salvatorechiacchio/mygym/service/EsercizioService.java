@@ -89,6 +89,10 @@ public class EsercizioService {
         return ResponseEntity.ok(result);
     }
 
+    public List<Esercizio> getAllByIdList(List<Long> idList) {
+        return esercizioRepository.findAllById(idList);
+    }
+
     // ===========================================================================
     public static void copyNonNullProperties(Object src, Object target) {
         BeanUtils.copyProperties(src, target, getNullPropertyNames(src));

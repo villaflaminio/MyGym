@@ -52,9 +52,8 @@ public class SensoreController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody SensoreDto sensoreDto, @PathVariable("id") Long id) {
-        sensoreService.update(sensoreDto, id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Sensore> update(@RequestBody SensoreDto sensoreDto, @PathVariable("id") Long id) {
+        return ResponseEntity.ok(sensoreService.update(sensoreDto, id));
     }
 
     @PostMapping("/filter")
