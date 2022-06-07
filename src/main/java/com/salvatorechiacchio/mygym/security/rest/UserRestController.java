@@ -1,11 +1,12 @@
 package com.salvatorechiacchio.mygym.security.rest;
 
-import com.flaminiovilla.geopic.security.exception.UserException;
-import com.flaminiovilla.geopic.security.helper.UserHelper;
-import com.flaminiovilla.geopic.security.model.User;
-import com.flaminiovilla.geopic.security.rest.dto.LoginDTO;
-import com.flaminiovilla.geopic.security.rest.dto.UserDTO;
-import com.flaminiovilla.geopic.security.service.UserService;
+
+import com.salvatorechiacchio.mygym.security.exception.UserException;
+import com.salvatorechiacchio.mygym.security.helper.UserHelper;
+import com.salvatorechiacchio.mygym.security.model.User;
+import com.salvatorechiacchio.mygym.security.rest.dto.LoginDTO;
+import com.salvatorechiacchio.mygym.security.rest.dto.UserDTO;
+import com.salvatorechiacchio.mygym.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Optional;
 
-import static com.flaminiovilla.geopic.security.exception.UserException.userExceptionCode.USER_NOT_LOGGED_IN;
+import static com.salvatorechiacchio.mygym.security.exception.UserException.userExceptionCode.USER_NOT_LOGGED_IN;
+
 
 /**
  * Controller to authenticate users.

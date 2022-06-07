@@ -1,6 +1,6 @@
 package com.salvatorechiacchio.mygym.security.repository;
 
-import com.flaminiovilla.geopic.security.model.Authority;
+import com.salvatorechiacchio.mygym.security.model.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Component;

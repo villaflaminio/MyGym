@@ -1,18 +1,17 @@
 package com.salvatorechiacchio.mygym.security.helper;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.flaminiovilla.geopic.model.Region;
-import com.flaminiovilla.geopic.repository.RegionRepository;
-import com.flaminiovilla.geopic.security.exception.UserException;
-import com.flaminiovilla.geopic.security.jwt.JWTFilter;
-import com.flaminiovilla.geopic.security.jwt.TokenProvider;
-import com.flaminiovilla.geopic.security.model.Authority;
-import com.flaminiovilla.geopic.security.model.User;
-import com.flaminiovilla.geopic.security.repository.AuthorityRepository;
-import com.flaminiovilla.geopic.security.repository.UserRepository;
-import com.flaminiovilla.geopic.security.rest.dto.LoginDTO;
-import com.flaminiovilla.geopic.security.rest.dto.UserDTO;
+
 import com.google.common.base.Preconditions;
+import com.salvatorechiacchio.mygym.security.exception.UserException;
+import com.salvatorechiacchio.mygym.security.jwt.JWTFilter;
+import com.salvatorechiacchio.mygym.security.jwt.TokenProvider;
+import com.salvatorechiacchio.mygym.security.model.Authority;
+import com.salvatorechiacchio.mygym.security.model.User;
+import com.salvatorechiacchio.mygym.security.repository.AuthorityRepository;
+import com.salvatorechiacchio.mygym.security.repository.UserRepository;
+import com.salvatorechiacchio.mygym.security.rest.dto.LoginDTO;
+import com.salvatorechiacchio.mygym.security.rest.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -30,7 +29,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static com.flaminiovilla.geopic.security.exception.UserException.userExceptionCode.*;
+import static com.salvatorechiacchio.mygym.security.exception.UserException.userExceptionCode.AUTHORITY_NOT_EXIST;
+import static com.salvatorechiacchio.mygym.security.exception.UserException.userExceptionCode.USER_ALREADY_EXISTS;
+
 
 @Component
 public class UserHelper {
@@ -40,8 +41,7 @@ public class UserHelper {
     AuthorityRepository authorityRepository;
     @Autowired
     private PasswordEncoder bcryptEncoder;
-    @Autowired
-    private RegionRepository regionRepository;
+
 
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -98,8 +98,8 @@ public class UserHelper {
         Preconditions.checkArgument(Objects.nonNull(userDTO.email));
         Preconditions.checkArgument(Objects.nonNull(userDTO.password));
         Preconditions.checkArgument(Objects.nonNull(userDTO.role));
-        Preconditions.checkArgument(Objects.nonNull(userDTO.firstName));
-        Preconditions.checkArgument(Objects.nonNull(userDTO.lastName));
+        Preconditions.checkArgument(Objects.nonNull(userDTO.nome));
+        Preconditions.checkArgument(Objects.nonNull(userDTO.cognome));
 
     }
 
@@ -133,10 +133,9 @@ public class UserHelper {
             return userRepository.save(User.builder()
                     .email(userDTO.email)
                     .password(bcryptEncoder.encode(userDTO.password))
-                    .firstName(userDTO.firstName)
-                    .lastName(userDTO.lastName)
+                    .nome(userDTO.nome)
+                    .cognome(userDTO.cognome)
                     .activated(true)
-                    .region(getRegion(userDTO))
                     .authorities(role(userDTO))
                     .build());
         }
@@ -148,50 +147,18 @@ public class UserHelper {
         switch (userDTO.role) {
             case "USER":
                 author.add(authorityRepository.getByName("ROLE_USER"));
-
                 break;
-            case "SECRETARY":
-                author.add(authorityRepository.getByName("ROLE_USER"));
-                author.add(authorityRepository.getByName("ROLE_SECRETARY"));
 
-                break;
-            case "ADMIN_SECRETARY":
-                author.add(authorityRepository.getByName("ROLE_USER"));
-                author.add(authorityRepository.getByName("ROLE_SECRETARY"));
-                author.add(authorityRepository.getByName("ROLE_ADMIN_SECRETARY"));
-
-                break;
             case "ADMIN":
                 author.add(authorityRepository.getByName("ROLE_USER"));
-                author.add(authorityRepository.getByName("ROLE_SECRETARY"));
-                author.add(authorityRepository.getByName("ROLE_ADMIN_SECRETARY"));
                 author.add(authorityRepository.getByName("ROLE_ADMIN"));
-
                 break;
             default:
                 throw new UserException(AUTHORITY_NOT_EXIST);
         }
         return author;
     }
-//TODO l'eliminazione non e' possibile , al massimo si disattiva
 
-    private Region getRegion(UserDTO userDTO) {
-            //Admin e User devono avere regione 99 , per indicare ovunque
-        switch (userDTO.role) {
-            case "ADMIN":
-            case "USER":
-                return regionRepository.findById((long) 99).get();
 
-            case "ADMIN_SECRETARY":
-                Preconditions.checkArgument(Objects.nonNull(userDTO.regionId));
-                return regionRepository.findById(userDTO.regionId).get();
-
-            case "SECRETARY":
-                Preconditions.checkArgument(Objects.nonNull(userDTO.callUser));
-
-                return userDTO.callUser.getRegion();
-        }
-        return null;
-    }
 
 }

@@ -1,10 +1,10 @@
 package com.salvatorechiacchio.mygym.security.config;
 
 
-import com.flaminiovilla.geopic.security.exception.JwtAccessDeniedHandler;
-import com.flaminiovilla.geopic.security.exception.JwtAuthenticationEntryPoint;
-import com.flaminiovilla.geopic.security.jwt.JWTConfigurer;
-import com.flaminiovilla.geopic.security.jwt.TokenProvider;
+import com.salvatorechiacchio.mygym.security.exception.JwtAccessDeniedHandler;
+import com.salvatorechiacchio.mygym.security.exception.JwtAuthenticationEntryPoint;
+import com.salvatorechiacchio.mygym.security.jwt.JWTConfigurer;
+import com.salvatorechiacchio.mygym.security.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

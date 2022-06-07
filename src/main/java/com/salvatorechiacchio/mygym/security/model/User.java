@@ -1,7 +1,6 @@
 package com.salvatorechiacchio.mygym.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.flaminiovilla.geopic.model.Region;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
 
@@ -40,15 +39,15 @@ public class User {
    @Size(min = 4, max = 100)
    private String password;
 
-   @Column(name = "firstName", length = 50)
+   @Column(name = "nome", length = 50)
    @NotNull
    @Size(min = 1, max = 50)
-   private String firstName;
+   private String nome;
 
-   @Column(name = "lastName", length = 50)
+   @Column(name = "cognome", length = 50)
    @NotNull
    @Size(min = 1, max = 50)
-   private String lastName;
+   private String cognome;
 
    @JsonIgnore
    @Column(name = "activated")
@@ -62,12 +61,6 @@ public class User {
       inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_NAME", referencedColumnName = "NAME")})
    @BatchSize(size = 20)
    private Set<Authority> authorities = new HashSet<>();
-
-
-   @ManyToOne
-   @JoinColumn(name="region_ID")
-   private Region region;
-
 
    @Override
    public boolean equals(Object o) {

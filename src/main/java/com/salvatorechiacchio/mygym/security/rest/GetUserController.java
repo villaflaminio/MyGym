@@ -1,7 +1,7 @@
 package com.salvatorechiacchio.mygym.security.rest;
 
-import com.flaminiovilla.geopic.security.model.User;
-import com.flaminiovilla.geopic.security.service.UserService;
+import com.salvatorechiacchio.mygym.security.model.User;
+import com.salvatorechiacchio.mygym.security.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

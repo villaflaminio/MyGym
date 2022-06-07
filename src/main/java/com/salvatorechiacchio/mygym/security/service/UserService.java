@@ -1,8 +1,8 @@
 package com.salvatorechiacchio.mygym.security.service;
 
-import com.flaminiovilla.geopic.security.SecurityUtils;
-import com.flaminiovilla.geopic.security.model.User;
-import com.flaminiovilla.geopic.security.repository.UserRepository;
+import com.salvatorechiacchio.mygym.security.SecurityUtils;
+import com.salvatorechiacchio.mygym.security.model.User;
+import com.salvatorechiacchio.mygym.security.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
