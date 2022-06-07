@@ -20,9 +20,8 @@ public class SensoreController {
     private SensoreService sensoreService;
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Validated SensoreDto sensoreDto) {
-        sensoreService.save(sensoreDto);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Sensore> save(@RequestBody @Validated SensoreDto sensoreDto) {
+        return ResponseEntity.ok(sensoreService.save(sensoreDto));
     }
 
     @GetMapping("/{id}")

@@ -29,6 +29,7 @@ public class EsercizioService {
         try {
             Esercizio esercizio = new Esercizio();
             BeanUtils.copyProperties(esercizioDto, esercizio);
+            esercizio.setId(null);
             return esercizioRepository.save(esercizio);
         }catch (Exception e){
             log.error("errore salvataggio esercizio", e);
@@ -48,11 +49,12 @@ public class EsercizioService {
         return esercizioRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
-    public Esercizio update(Esercizio esercizio, Long id) {
+    public Esercizio update(EsercizioDto esercizioDto, Long id) {
         Optional<Esercizio> esercizioOld = esercizioRepository.findById(id);
-        esercizio.setId(id);
+        esercizioDto.setId(id);
         if (esercizioOld.isPresent()) {
-            copyNonNullProperties(esercizio, esercizioOld.get());
+            copyNonNullProperties(esercizioDto, esercizioOld.get());
+            esercizioOld.get().setId(id);
             return esercizioRepository.save(esercizioOld.get());
         }
         else {

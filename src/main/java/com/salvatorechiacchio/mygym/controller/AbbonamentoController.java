@@ -39,7 +39,6 @@ public class AbbonamentoController {
 
     @PostMapping
     public ResponseEntity<Abbonamento> save(@RequestBody @Validated AbbonamentoDto abbonamentoDto) {
-
         return ResponseEntity.ok(abbonamentoService.save(abbonamentoDto));
     }
 

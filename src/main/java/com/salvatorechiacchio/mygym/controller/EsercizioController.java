@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RequestMapping("/esercizio")
+@RequestMapping("/api/esercizio")
 @RestController
 @Slf4j
 public class EsercizioController {
@@ -25,9 +25,8 @@ public class EsercizioController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Validated EsercizioDto esercizioDto) {
-        esercizioService.save(esercizioDto);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Esercizio> save(@RequestBody @Validated EsercizioDto esercizioDto) {
+        return ResponseEntity.ok(esercizioService.save(esercizioDto));
     }
 
     @GetMapping("/{id}")
@@ -47,8 +46,8 @@ public class EsercizioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody Esercizio esercizio, @PathVariable("id") Long id) {
-        esercizioService.update(esercizio, id);
+    public ResponseEntity<Void> update(@RequestBody EsercizioDto esercizioDto, @PathVariable("id") Long id) {
+        esercizioService.update(esercizioDto, id);
         return ResponseEntity.ok().build();
     }
 }
