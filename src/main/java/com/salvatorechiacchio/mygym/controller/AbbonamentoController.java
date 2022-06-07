@@ -57,9 +57,8 @@ public class AbbonamentoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody Abbonamento abbonamento, @PathVariable("id") Long id) {
-        abbonamentoService.update(abbonamento, id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Abbonamento> update(@RequestBody AbbonamentoDto  abbonamentoDto, @PathVariable("id") Long id) {
+        return ResponseEntity.ok( abbonamentoService.update(abbonamentoDto, id));
     }
 
     @PostMapping("/filter")

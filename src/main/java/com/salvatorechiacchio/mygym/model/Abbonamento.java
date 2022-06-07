@@ -18,7 +18,7 @@ import java.util.Date;
 @Builder
 public class Abbonamento {
     @Id
-    @SequenceGenerator(name = "Abbonamento_SEQ", sequenceName = "Abbonamento_SEQ", allocationSize = 1)
+    @GeneratedValue
     private Long id;
 
 

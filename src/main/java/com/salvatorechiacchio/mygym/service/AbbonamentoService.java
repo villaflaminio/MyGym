@@ -46,6 +46,7 @@ public class AbbonamentoService {
             BeanUtils.copyProperties(abbonamentoDto, abbonamento);
             abbonamento.setPalestra(palestra);
             abbonamento.setUtente(user);
+            abbonamento.setId(null);
             return abbonamentoRepository.save(abbonamento);
         }catch (Exception e){
             log.error("errore salvataggio abbonamento", e);
@@ -61,11 +62,12 @@ public class AbbonamentoService {
     public List<Abbonamento> findAll() {
         return abbonamentoRepository.findAll();
     }
-    public Abbonamento update(Abbonamento abbonamento, Long id) {
+    public Abbonamento update(AbbonamentoDto abbonamentoDto, Long id) {
         Optional<Abbonamento> abbonamentoOld = abbonamentoRepository.findById(id);
-        abbonamento.setId(id);
+        abbonamentoDto.setId(id);
         if (abbonamentoOld.isPresent()) {
-            copyNonNullProperties(abbonamento, abbonamentoOld.get());
+            copyNonNullProperties(abbonamentoDto, abbonamentoOld.get());
+            abbonamentoDto.setId(id);
             return  abbonamentoRepository.save(abbonamentoOld.get());
         }
         else {

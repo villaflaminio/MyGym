@@ -25,6 +25,7 @@ public class Palestra {
 
 
     @OneToMany(mappedBy = "palestra")
+    @JsonBackReference(value = "abbonamenti")
     private List<Abbonamento> abbonamenti;
 
 

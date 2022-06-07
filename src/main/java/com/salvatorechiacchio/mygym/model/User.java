@@ -57,11 +57,12 @@ public class User {
    private boolean activated;
 
    @OneToMany(mappedBy = "utente")
+   @JsonBackReference(value = "abbonamenti")
    private List<Abbonamento> abbonamenti;
 
 
    @OneToMany(mappedBy = "utente")
-//   @JsonBackReference(value = "schedeAllenamento")
+  @JsonBackReference(value = "schedeAllenamento")
    private List<SchedaAllenamento> schedeAllenamento;
 
    @ManyToMany
