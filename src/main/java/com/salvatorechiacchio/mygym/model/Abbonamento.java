@@ -27,7 +27,7 @@ public class Abbonamento {
     @Size(min = 1, max = 50)
     private String nome;
 
-    private float costo;
+    private Float costo;
 
     @NotNull
     private LocalDate dataInizio;
@@ -35,7 +35,7 @@ public class Abbonamento {
     @NotNull
     private LocalDate dataFine;
 
-    private boolean pagato;
+    private Boolean pagato;
 
     @ManyToOne
     @JoinColumn(name="utente_id")

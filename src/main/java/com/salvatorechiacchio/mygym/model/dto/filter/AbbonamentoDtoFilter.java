@@ -9,10 +9,10 @@ import java.time.LocalDate;
 public class AbbonamentoDtoFilter implements Serializable {
     private Long id;
     private String nome;
-    private float costo;
+    private Float costo;
     private LocalDate dataInizio;
     private LocalDate dataFine;
-    private boolean pagato;
-    private long idUtente;
-    private long idPalestra;
+    private Boolean pagato;
+    private Long idUtente;
+    private Long idPalestra;
 }
