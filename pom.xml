@@ -32,6 +32,13 @@
             <artifactId>geocoder-java</artifactId>
             <version>0.16</version>
         </dependency>
+        <!-- Swagger UI -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.4</version>
+        </dependency>
+        <!-- Swagger UI -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
