@@ -3,10 +3,9 @@ package com.salvatorechiacchio.mygym.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Data
 @Getter
@@ -25,4 +24,10 @@ public class Sensore {
     @OneToOne(mappedBy = "sensore")
     private Palestra palestra;
 
+    @Column(name = "nome", length = 50)
+    @NotNull
+    @Size(min = 1, max = 50)
+    private String nome;
+
+    private Float misurazione;
 }
