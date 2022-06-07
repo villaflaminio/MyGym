@@ -1,17 +1,23 @@
 package com.salvatorechiacchio.mygym.service;
 
+import com.salvatorechiacchio.mygym.model.Abbonamento;
 import com.salvatorechiacchio.mygym.model.Esercizio;
 import com.salvatorechiacchio.mygym.model.Palestra;
 import com.salvatorechiacchio.mygym.model.dto.SensoreDto;
 import com.salvatorechiacchio.mygym.model.Sensore;
+import com.salvatorechiacchio.mygym.model.dto.filter.AbbonamentoDtoFilter;
+import com.salvatorechiacchio.mygym.model.dto.filter.SensoreDtoFilter;
 import com.salvatorechiacchio.mygym.repository.PalestraRepository;
 import com.salvatorechiacchio.mygym.repository.SensoreRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -83,6 +89,28 @@ public class SensoreService {
         }catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public ResponseEntity<Page<Sensore>> filter(SensoreDtoFilter probe, Integer page, Integer size, String sortField, String sortDirection){
+        Pageable pageable;
+        Page<Sensore> result;
+        Sensore sensore = new Sensore();
+        if (probe != null) {
+            copyNonNullProperties(probe, sensore);
+        }
+
+        if (StringUtils.isEmpty(sortField)) {
+            pageable = PageRequest.of(page, size);
+        } else {
+            Sort.Direction dir = StringUtils.isEmpty(sortDirection) ? Sort.Direction.ASC : Sort.Direction.valueOf(sortDirection.trim().toUpperCase());
+            pageable = PageRequest.of(page, size, dir, sortField);
+        }
+        ExampleMatcher matcher = ExampleMatcher.matchingAll().withIgnoreCase().withIgnoreNullValues().withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
+        Example<Sensore> example = Example.of(sensore, matcher);
+
+        result = sensoreRepository.findAll(example, pageable);
+
+        return ResponseEntity.ok(result);
     }
 
     // ===========================================================================
