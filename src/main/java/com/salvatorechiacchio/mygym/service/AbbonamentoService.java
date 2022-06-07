@@ -34,8 +34,6 @@ public class AbbonamentoService {
     @Autowired
     PalestraRepository palestraRepository;
 
-
-
     public Abbonamento save(AbbonamentoDto abbonamentoDto)  {
         try {
             User user = userRepository.findById(abbonamentoDto.getIdUtente()).orElseThrow(() -> new Exception("user non trovato"));
@@ -50,11 +48,9 @@ public class AbbonamentoService {
             throw new RuntimeException(e);
         }
     }
-
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
-
     public Abbonamento findById(Long id) {
         return repository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
@@ -76,7 +72,6 @@ public class AbbonamentoService {
         String[] result = new String[emptyNames.size()];
         return emptyNames.toArray(result);
     }
-
     public Abbonamento update(Abbonamento abbonamento, Long id) {
         Optional<Abbonamento> abbonamentoOld = repository.findById(id);
         abbonamento.setId(id);
