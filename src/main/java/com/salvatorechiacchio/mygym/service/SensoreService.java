@@ -1,5 +1,6 @@
 package com.salvatorechiacchio.mygym.service;
 
+import com.salvatorechiacchio.mygym.model.Esercizio;
 import com.salvatorechiacchio.mygym.model.Palestra;
 import com.salvatorechiacchio.mygym.model.dto.SensoreDto;
 import com.salvatorechiacchio.mygym.model.Sensore;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -30,10 +32,12 @@ public class SensoreService {
 
     public Sensore save(SensoreDto sensoreDto) {
         try {
-            Palestra palestra = palestraRepository.findById(sensoreDto.getIdPalestra()).orElseThrow(() -> new Exception("palestra non trovato"));
+            Palestra palestra = palestraRepository.findById(sensoreDto.getIdPalestra()).orElseThrow(() -> new Exception("palestra non trovata"));
             Sensore sensore = new Sensore();
             BeanUtils.copyProperties(sensoreDto, sensore);
             sensore.setPalestra(palestra);
+            palestra.setSensore(sensore);
+            sensore.setId(null);
             return sensoreRepository.save(sensore);
         }catch (Exception e){
             log.error("errore salvataggio sensore", e);
@@ -42,23 +46,42 @@ public class SensoreService {
     }
 
     public void deleteById(Long id) {
-        sensoreRepository.deleteById(id);
+        try {
+            Sensore sensore = sensoreRepository.findById(id).orElseThrow(() -> new Exception("sensore non trovato"));
+            sensore.getPalestra().setSensore(null);
+            sensore.setPalestra(null);
+
+            sensoreRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Sensore> findAll() {
+        return sensoreRepository.findAll();
     }
 
     public Sensore findById(Long id) {
         return sensoreRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
+    public Sensore update(SensoreDto sensoreDto, Long id) {
+        try {
+            Palestra palestra = palestraRepository.findById(sensoreDto.getIdPalestra()).orElseThrow(() -> new Exception("palestra non trovata"));
 
-    public Sensore update(Sensore sensore, Long id) {
-        Optional<Sensore> sensoreOld = sensoreRepository.findById(id);
-        sensore.setId(id);
-        if (sensoreOld.isPresent()) {
-            copyNonNullProperties(sensore, sensoreOld.get());
-            return sensoreRepository.save(sensoreOld.get());
-        }
-        else {
-            throw new ResourceNotFoundException();
+            Optional<Sensore> sensoreOld = sensoreRepository.findById(id);
+            sensoreDto.setId(id);
+            if (sensoreOld.isPresent()) {
+                copyNonNullProperties(sensoreDto, sensoreOld.get());
+                sensoreOld.get().setPalestra(palestra);
+                palestra.setSensore(sensoreOld.get());
+                return sensoreRepository.save(sensoreOld.get());
+            }
+            else {
+                throw new ResourceNotFoundException();
+            }
+        }catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

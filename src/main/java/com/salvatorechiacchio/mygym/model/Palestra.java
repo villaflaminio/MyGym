@@ -1,5 +1,6 @@
 package com.salvatorechiacchio.mygym.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.rest.core.annotation.RestResource;
@@ -29,8 +30,8 @@ public class Palestra {
 
 
     @OneToOne
-    @JoinColumn(name = "sensore_id")
-    @RestResource(path = "sensorePalestra", rel="sensore")
+    @JoinColumn(name = "sensore_id", referencedColumnName = "id")
+    @JsonBackReference(value = "sensore")
     private Sensore sensore;
 
 

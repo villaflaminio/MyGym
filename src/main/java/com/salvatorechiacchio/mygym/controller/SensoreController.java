@@ -31,6 +31,11 @@ public class SensoreController {
         return ResponseEntity.ok(sensore);
     }
 
+    @GetMapping("")
+    public ResponseEntity<?> findAll() {
+        return ResponseEntity.ok(sensoreService.findAll());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         Optional.ofNullable(sensoreService.findById(id)).orElseThrow(() -> {
@@ -42,8 +47,8 @@ public class SensoreController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody Sensore sensore, @PathVariable("id") Long id) {
-        sensoreService.update(sensore, id);
+    public ResponseEntity<Void> update(@RequestBody SensoreDto sensoreDto, @PathVariable("id") Long id) {
+        sensoreService.update(sensoreDto, id);
         return ResponseEntity.ok().build();
     }
 }
