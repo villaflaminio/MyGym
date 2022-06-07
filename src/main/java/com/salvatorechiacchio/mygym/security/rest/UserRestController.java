@@ -3,7 +3,7 @@ package com.salvatorechiacchio.mygym.security.rest;
 
 import com.salvatorechiacchio.mygym.security.exception.UserException;
 import com.salvatorechiacchio.mygym.security.helper.UserHelper;
-import com.salvatorechiacchio.mygym.security.model.User;
+import com.salvatorechiacchio.mygym.model.User;
 import com.salvatorechiacchio.mygym.security.rest.dto.LoginDTO;
 import com.salvatorechiacchio.mygym.security.rest.dto.UserDTO;
 import com.salvatorechiacchio.mygym.security.service.UserService;

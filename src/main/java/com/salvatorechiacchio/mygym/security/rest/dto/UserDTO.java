@@ -1,7 +1,7 @@
 package com.salvatorechiacchio.mygym.security.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.salvatorechiacchio.mygym.security.model.User;
+import com.salvatorechiacchio.mygym.model.User;
 import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

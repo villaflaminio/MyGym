@@ -1,6 +1,6 @@
 package com.salvatorechiacchio.mygym.security.repository;
 
-import com.salvatorechiacchio.mygym.security.model.User;
+import com.salvatorechiacchio.mygym.model.User;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

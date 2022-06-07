@@ -1,4 +1,4 @@
-package com.salvatorechiacchio.mygym.security.model;
+package com.salvatorechiacchio.mygym.model;
 
 import lombok.Data;
 

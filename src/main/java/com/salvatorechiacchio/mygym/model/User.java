@@ -1,4 +1,4 @@
-package com.salvatorechiacchio.mygym.security.model;
+package com.salvatorechiacchio.mygym.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -53,6 +54,13 @@ public class User {
    @Column(name = "activated")
    @NotNull
    private boolean activated;
+
+   @OneToMany(mappedBy = "utente")
+   private List<Abbonamento> abbonamenti;
+
+
+   @OneToMany(mappedBy = "utente")
+   private List<SchedaAllenamento> schedeAllenamento;
 
    @ManyToMany
    @JoinTable(

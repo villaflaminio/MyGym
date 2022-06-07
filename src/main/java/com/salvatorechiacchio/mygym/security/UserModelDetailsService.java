@@ -1,7 +1,7 @@
 package com.salvatorechiacchio.mygym.security;
 
 import com.salvatorechiacchio.mygym.security.exception.UserNotActivatedException;
-import com.salvatorechiacchio.mygym.security.model.User;
+import com.salvatorechiacchio.mygym.model.User;
 import com.salvatorechiacchio.mygym.security.repository.UserRepository;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.slf4j.Logger;

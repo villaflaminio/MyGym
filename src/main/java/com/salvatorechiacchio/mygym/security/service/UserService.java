@@ -1,7 +1,7 @@
 package com.salvatorechiacchio.mygym.security.service;
 
 import com.salvatorechiacchio.mygym.security.SecurityUtils;
-import com.salvatorechiacchio.mygym.security.model.User;
+import com.salvatorechiacchio.mygym.model.User;
 import com.salvatorechiacchio.mygym.security.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
