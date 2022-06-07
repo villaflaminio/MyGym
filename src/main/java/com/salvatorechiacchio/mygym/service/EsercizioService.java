@@ -1,55 +1,73 @@
 package com.salvatorechiacchio.mygym.service;
 
-import com.salvatorechiacchio.mygym.dto.EsercizioDto;
-import com.salvatorechiacchio.mygym.mapper.EsercizioMapper;
+import com.salvatorechiacchio.mygym.model.dto.EsercizioDto;
 import com.salvatorechiacchio.mygym.model.Esercizio;
 import com.salvatorechiacchio.mygym.repository.EsercizioRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @Service
 @Transactional
 public class EsercizioService {
-    private final EsercizioRepository repository;
-    private final EsercizioMapper esercizioMapper;
+    @Autowired
+    private EsercizioRepository esercizioRepository;
 
-    public EsercizioService(EsercizioRepository repository, EsercizioMapper esercizioMapper) {
-        this.repository = repository;
-        this.esercizioMapper = esercizioMapper;
-    }
-
-    public EsercizioDto save(EsercizioDto esercizioDto) {
-        Esercizio entity = esercizioMapper.toEntity(esercizioDto);
-        return esercizioMapper.toDto(repository.save(entity));
+    public Esercizio save(EsercizioDto esercizioDto) {
+        try {
+            Esercizio esercizio = new Esercizio();
+            BeanUtils.copyProperties(esercizioDto, esercizio);
+            return esercizioRepository.save(esercizio);
+        }catch (Exception e){
+            log.error("errore salvataggio esercizio", e);
+            throw new RuntimeException(e);
+        }
     }
 
     public void deleteById(Long id) {
-        repository.deleteById(id);
+        esercizioRepository.deleteById(id);
     }
 
-    public EsercizioDto findById(Long id) {
-        return esercizioMapper.toDto(repository.findById(id).orElseThrow(ResourceNotFoundException::new));
+    public Esercizio findById(Long id) {
+        return esercizioRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
-    public Page<EsercizioDto> findByCondition(EsercizioDto esercizioDto, Pageable pageable) {
-        Page<Esercizio> entityPage = repository.findAll(pageable);
-        List<Esercizio> entities = entityPage.getContent();
-        return new PageImpl<>(esercizioMapper.toDto(entities), pageable, entityPage.getTotalElements());
+    public Esercizio update(Esercizio esercizio, Long id) {
+        Optional<Esercizio> esercizioOld = esercizioRepository.findById(id);
+        esercizio.setId(id);
+        if (esercizioOld.isPresent()) {
+            copyNonNullProperties(esercizio, esercizioOld.get());
+            return esercizioRepository.save(esercizioOld.get());
+        }
+        else {
+            throw new ResourceNotFoundException();
+        }
     }
 
-    public EsercizioDto update(EsercizioDto esercizioDto, Long id) {
-        EsercizioDto data = findById(id);
-        Esercizio entity = esercizioMapper.toEntity(esercizioDto);
-        BeanUtil.copyProperties(data, entity);
-        return save(esercizioMapper.toDto(entity));
+    // ===========================================================================
+    public static void copyNonNullProperties(Object src, Object target) {
+        BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
+    }
+    public static String[] getNullPropertyNames(Object source) {
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        Set<String> emptyNames = new HashSet<String>();
+        for (java.beans.PropertyDescriptor pd : pds) {
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue == null) emptyNames.add(pd.getName());
+        }
+        String[] result = new String[emptyNames.size()];
+        return emptyNames.toArray(result);
     }
 }
