@@ -46,8 +46,7 @@ public class EsercizioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody EsercizioDto esercizioDto, @PathVariable("id") Long id) {
-        esercizioService.update(esercizioDto, id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Esercizio> update(@RequestBody EsercizioDto esercizioDto, @PathVariable("id") Long id) {
+        return ResponseEntity.ok(esercizioService.update(esercizioDto, id));
     }
 }

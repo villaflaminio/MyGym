@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RequestMapping("/api/scheda-allenamento")
+@RequestMapping("/api/schedaAllenamento")
 @RestController
 @Slf4j
 public class SchedaAllenamentoController {
@@ -25,9 +25,8 @@ public class SchedaAllenamentoController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Validated SchedaAllenamentoDto schedaAllenamentoDto) {
-        schedaAllenamentoService.save(schedaAllenamentoDto);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<SchedaAllenamento> save(@RequestBody @Validated SchedaAllenamentoDto schedaAllenamentoDto) {
+        return ResponseEntity.ok(schedaAllenamentoService.save(schedaAllenamentoDto));
     }
 
     @GetMapping("/{id}")
@@ -47,8 +46,8 @@ public class SchedaAllenamentoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody SchedaAllenamento schedaAllenamento, @PathVariable("id") Long id) {
-        schedaAllenamentoService.update(schedaAllenamento, id);
+    public ResponseEntity<SchedaAllenamento> update(@RequestBody SchedaAllenamentoDto schedaAllenamentoDto, @PathVariable("id") Long id) {
+        schedaAllenamentoService.update(schedaAllenamentoDto, id);
         return ResponseEntity.ok().build();
     }
 }

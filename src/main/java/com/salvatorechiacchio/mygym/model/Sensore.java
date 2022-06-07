@@ -16,7 +16,6 @@ import javax.validation.constraints.Size;
 @Builder
 public class Sensore {
 
-    @JsonIgnore
     @Id
     @GeneratedValue
     private Long id;

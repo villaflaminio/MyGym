@@ -17,7 +17,6 @@ import java.util.Date;
 @Entity
 @Builder
 public class Abbonamento {
-    @JsonIgnore
     @Id
     @SequenceGenerator(name = "Abbonamento_SEQ", sequenceName = "Abbonamento_SEQ", allocationSize = 1)
     private Long id;

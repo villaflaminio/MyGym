@@ -4,6 +4,7 @@ package com.salvatorechiacchio.mygym.security.rest;
 import com.salvatorechiacchio.mygym.security.exception.UserException;
 import com.salvatorechiacchio.mygym.security.helper.UserHelper;
 import com.salvatorechiacchio.mygym.model.User;
+import com.salvatorechiacchio.mygym.security.repository.UserRepository;
 import com.salvatorechiacchio.mygym.security.rest.dto.LoginDTO;
 import com.salvatorechiacchio.mygym.security.rest.dto.UserDTO;
 import com.salvatorechiacchio.mygym.security.service.UserService;
@@ -28,7 +29,8 @@ public class UserRestController {
    @Autowired
    UserHelper userHelper;
    private final UserService userService;
-
+   @Autowired
+   UserRepository userRepository;
    public UserRestController(UserService userService) {
       this.userService = userService;
    }
@@ -57,6 +59,11 @@ public class UserRestController {
    @PostMapping("/register/user")
    public User registerUser(@Valid @RequestBody UserDTO userDTO) {
       return userHelper.registerUser(userDTO);
+   }
+
+   @GetMapping("/user/{id}")
+   public ResponseEntity<User> registerUser(@PathVariable("id") Long id) {
+      return ResponseEntity.ok(userRepository.findById(id).get());
    }
 
    /** Dati per register nel seguente formato

@@ -1,5 +1,6 @@
 package com.salvatorechiacchio.mygym.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
@@ -60,6 +61,7 @@ public class User {
 
 
    @OneToMany(mappedBy = "utente")
+//   @JsonBackReference(value = "schedeAllenamento")
    private List<SchedaAllenamento> schedeAllenamento;
 
    @ManyToMany
