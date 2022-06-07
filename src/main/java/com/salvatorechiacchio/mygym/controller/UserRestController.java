@@ -62,8 +62,13 @@ public class UserRestController {
    }
 
    @GetMapping("/user/{id}")
-   public ResponseEntity<User> registerUser(@PathVariable("id") Long id) {
-      return ResponseEntity.ok(userRepository.findById(id).get());
+   public ResponseEntity<User> getUtente(@PathVariable("id") Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()) {
+
+            return ResponseEntity.ok(user.get());
+        }
+        return ResponseEntity.notFound().build();
    }
 
    /** Dati per register nel seguente formato

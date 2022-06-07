@@ -67,12 +67,11 @@ public class EsercizioService {
         }
     }
 
-    public ResponseEntity<Page<Esercizio>> filter(EsercizioDtoFilter probe, Integer page, Integer size, String sortField, String sortDirection){
+    public ResponseEntity<Page<Esercizio>> filter(Esercizio probe, Integer page, Integer size, String sortField, String sortDirection){
         Pageable pageable;
         Page<Esercizio> result;
-        Esercizio esercizio = new Esercizio();
-        if (probe != null) {
-            copyNonNullProperties(probe, esercizio);
+        if (probe == null) {
+            probe = new Esercizio();
         }
 
         if (StringUtils.isEmpty(sortField)) {
@@ -82,7 +81,7 @@ public class EsercizioService {
             pageable = PageRequest.of(page, size, dir, sortField);
         }
         ExampleMatcher matcher = ExampleMatcher.matchingAll().withIgnoreCase().withIgnoreNullValues().withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
-        Example<Esercizio> example = Example.of(esercizio, matcher);
+        Example<Esercizio> example = Example.of(probe, matcher);
 
         result = esercizioRepository.findAll(example, pageable);
 

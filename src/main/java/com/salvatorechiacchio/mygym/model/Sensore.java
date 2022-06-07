@@ -1,5 +1,6 @@
 package com.salvatorechiacchio.mygym.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -21,6 +22,7 @@ public class Sensore {
     private Long id;
 
     @OneToOne(mappedBy = "sensore")
+    @JsonBackReference(value = "sensore")
     private Palestra palestra;
 
     @Column(name = "nome", length = 50)

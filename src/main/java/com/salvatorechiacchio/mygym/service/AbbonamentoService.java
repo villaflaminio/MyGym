@@ -75,12 +75,11 @@ public class AbbonamentoService {
         }
     }
 
-    public ResponseEntity<Page<Abbonamento>> filter(AbbonamentoDtoFilter probe, Integer page, Integer size, String sortField, String sortDirection){
+    public ResponseEntity<Page<Abbonamento>> filter(Abbonamento probe, Integer page, Integer size, String sortField, String sortDirection){
         Pageable pageable;
         Page<Abbonamento> result;
-        Abbonamento abbonamento = new Abbonamento();
-        if (probe != null) {
-            copyNonNullProperties(probe, abbonamento);
+        if (probe == null) {
+            probe = new Abbonamento();
         }
 
         if (StringUtils.isEmpty(sortField)) {
@@ -90,7 +89,7 @@ public class AbbonamentoService {
             pageable = PageRequest.of(page, size, dir, sortField);
         }
         ExampleMatcher matcher = ExampleMatcher.matchingAll().withIgnoreCase().withIgnoreNullValues().withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
-        Example<Abbonamento> example = Example.of(abbonamento, matcher);
+        Example<Abbonamento> example = Example.of(probe, matcher);
 
         result = abbonamentoRepository.findAll(example, pageable);
 

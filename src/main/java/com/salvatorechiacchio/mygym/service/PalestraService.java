@@ -64,12 +64,11 @@ public class PalestraService {
             throw new ResourceNotFoundException();
         }
     }
-    public ResponseEntity<Page<Palestra>> filter(PalestraDtoFilter probe, Integer page, Integer size, String sortField, String sortDirection){
+    public ResponseEntity<Page<Palestra>> filter(Palestra probe, Integer page, Integer size, String sortField, String sortDirection){
         Pageable pageable;
         Page<Palestra> result;
-        Palestra palestra = new Palestra();
-        if (probe != null) {
-            copyNonNullProperties(probe, palestra);
+        if (probe == null) {
+            probe = new Palestra();
         }
 
         if (StringUtils.isEmpty(sortField)) {
@@ -79,7 +78,7 @@ public class PalestraService {
             pageable = PageRequest.of(page, size, dir, sortField);
         }
         ExampleMatcher matcher = ExampleMatcher.matchingAll().withIgnoreCase().withIgnoreNullValues().withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
-        Example<Palestra> example = Example.of(palestra, matcher);
+        Example<Palestra> example = Example.of(probe, matcher);
 
         result = palestraRepository.findAll(example, pageable);
 

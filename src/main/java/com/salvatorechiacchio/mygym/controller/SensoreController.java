@@ -58,7 +58,7 @@ public class SensoreController {
 
     @PostMapping("/filter")
     ResponseEntity<Page<Sensore>> filter(
-            @RequestBody(required = false) SensoreDtoFilter probe,
+            @RequestBody(required = false) Sensore probe,
             @RequestParam(required = false, defaultValue = "0", name = "page") Integer page,
             @RequestParam(required = false, defaultValue = "10", name = "size") Integer size,
             @RequestParam(required = false, name = "sortField") String sortField,

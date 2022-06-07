@@ -25,13 +25,13 @@ public class Palestra {
 
 
     @OneToMany(mappedBy = "palestra")
-    @JsonBackReference(value = "abbonamenti")
+    //@JsonBackReference(value = "abbonamenti")
     private List<Abbonamento> abbonamenti;
 
 
     @OneToOne
     @JoinColumn(name = "sensore_id", referencedColumnName = "id")
-    @JsonBackReference(value = "sensore")
+    //@JsonBackReference(value = "sensore")
     private Sensore sensore;
 
 

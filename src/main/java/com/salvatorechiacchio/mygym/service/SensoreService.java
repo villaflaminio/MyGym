@@ -91,12 +91,11 @@ public class SensoreService {
         }
     }
 
-    public ResponseEntity<Page<Sensore>> filter(SensoreDtoFilter probe, Integer page, Integer size, String sortField, String sortDirection){
+    public ResponseEntity<Page<Sensore>> filter(Sensore probe, Integer page, Integer size, String sortField, String sortDirection){
         Pageable pageable;
         Page<Sensore> result;
-        Sensore sensore = new Sensore();
-        if (probe != null) {
-            copyNonNullProperties(probe, sensore);
+        if (probe == null) {
+            probe = new Sensore();
         }
 
         if (StringUtils.isEmpty(sortField)) {
@@ -106,7 +105,7 @@ public class SensoreService {
             pageable = PageRequest.of(page, size, dir, sortField);
         }
         ExampleMatcher matcher = ExampleMatcher.matchingAll().withIgnoreCase().withIgnoreNullValues().withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
-        Example<Sensore> example = Example.of(sensore, matcher);
+        Example<Sensore> example = Example.of(probe, matcher);
 
         result = sensoreRepository.findAll(example, pageable);
 

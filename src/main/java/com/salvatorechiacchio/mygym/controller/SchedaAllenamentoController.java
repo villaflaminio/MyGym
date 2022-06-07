@@ -58,7 +58,7 @@ public class SchedaAllenamentoController {
     }
     @PostMapping("/filter")
     ResponseEntity<Page<SchedaAllenamento>> filter(
-            @RequestBody(required = false) SchedaAllenamentoDtoFilter probe,
+            @RequestBody(required = false) SchedaAllenamento probe,
             @RequestParam(required = false, defaultValue = "0", name = "page") Integer page,
             @RequestParam(required = false, defaultValue = "10", name = "size") Integer size,
             @RequestParam(required = false, name = "sortField") String sortField,

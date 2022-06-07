@@ -95,12 +95,11 @@ public class SchedaAllenamentoService {
         }
     }
 
-    public ResponseEntity<Page<SchedaAllenamento>> filter(SchedaAllenamentoDtoFilter probe, Integer page, Integer size, String sortField, String sortDirection){
+    public ResponseEntity<Page<SchedaAllenamento>> filter(SchedaAllenamento probe, Integer page, Integer size, String sortField, String sortDirection){
         Pageable pageable;
         Page<SchedaAllenamento> result;
-        SchedaAllenamento schedaAllenamento = new SchedaAllenamento();
-        if (probe != null) {
-            copyNonNullProperties(probe, schedaAllenamento);
+        if (probe == null) {
+            probe = new SchedaAllenamento();
         }
 
         if (StringUtils.isEmpty(sortField)) {
@@ -110,7 +109,7 @@ public class SchedaAllenamentoService {
             pageable = PageRequest.of(page, size, dir, sortField);
         }
         ExampleMatcher matcher = ExampleMatcher.matchingAll().withIgnoreCase().withIgnoreNullValues().withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
-        Example<SchedaAllenamento> example = Example.of(schedaAllenamento, matcher);
+        Example<SchedaAllenamento> example = Example.of(probe, matcher);
 
         result = schedaAllenamentoRepository.findAll(example, pageable);
 

@@ -33,7 +33,7 @@ public class SchedaAllenamento {
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    @JsonBackReference(value = "utente")
+    @JsonBackReference(value = "schedaAllenamento")
     private User utente;
 
 

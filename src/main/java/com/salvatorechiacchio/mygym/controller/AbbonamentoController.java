@@ -63,7 +63,7 @@ public class AbbonamentoController {
 
     @PostMapping("/filter")
     ResponseEntity<Page<Abbonamento>> filter(
-            @RequestBody(required = false) AbbonamentoDtoFilter probe,
+            @RequestBody(required = false) Abbonamento probe,
             @RequestParam(required = false, defaultValue = "0", name = "page") Integer page,
             @RequestParam(required = false, defaultValue = "10", name = "size") Integer size,
             @RequestParam(required = false, name = "sortField") String sortField,

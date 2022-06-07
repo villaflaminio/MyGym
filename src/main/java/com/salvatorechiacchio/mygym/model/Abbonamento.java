@@ -1,5 +1,6 @@
 package com.salvatorechiacchio.mygym.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -39,9 +40,11 @@ public class Abbonamento {
 
     @ManyToOne
     @JoinColumn(name="utente_id")
+    @JsonBackReference()
     private User utente;
 
     @ManyToOne
-    @JoinColumn(name="palestra_id")
+    @JoinColumn()
+    @JsonBackReference(value = "abbonamenti")
     private Palestra palestra;
 }

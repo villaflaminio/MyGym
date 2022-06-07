@@ -58,7 +58,7 @@ public class PalestraController {
 
     @PostMapping("/filter")
     ResponseEntity<Page<Palestra>> filter(
-            @RequestBody(required = false) PalestraDtoFilter probe,
+            @RequestBody(required = false) Palestra probe,
             @RequestParam(required = false, defaultValue = "0", name = "page") Integer page,
             @RequestParam(required = false, defaultValue = "10", name = "size") Integer size,
             @RequestParam(required = false, name = "sortField") String sortField,
