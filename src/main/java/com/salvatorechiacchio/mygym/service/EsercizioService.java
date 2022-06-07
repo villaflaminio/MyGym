@@ -3,13 +3,18 @@ package com.salvatorechiacchio.mygym.service;
 import com.salvatorechiacchio.mygym.model.Abbonamento;
 import com.salvatorechiacchio.mygym.model.dto.EsercizioDto;
 import com.salvatorechiacchio.mygym.model.Esercizio;
+import com.salvatorechiacchio.mygym.model.dto.filter.AbbonamentoDtoFilter;
+import com.salvatorechiacchio.mygym.model.dto.filter.EsercizioDtoFilter;
 import com.salvatorechiacchio.mygym.repository.EsercizioRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -60,6 +65,28 @@ public class EsercizioService {
         else {
             throw new ResourceNotFoundException();
         }
+    }
+
+    public ResponseEntity<Page<Esercizio>> filter(EsercizioDtoFilter probe, Integer page, Integer size, String sortField, String sortDirection){
+        Pageable pageable;
+        Page<Esercizio> result;
+        Esercizio esercizio = new Esercizio();
+        if (probe != null) {
+            copyNonNullProperties(probe, esercizio);
+        }
+
+        if (StringUtils.isEmpty(sortField)) {
+            pageable = PageRequest.of(page, size);
+        } else {
+            Sort.Direction dir = StringUtils.isEmpty(sortDirection) ? Sort.Direction.ASC : Sort.Direction.valueOf(sortDirection.trim().toUpperCase());
+            pageable = PageRequest.of(page, size, dir, sortField);
+        }
+        ExampleMatcher matcher = ExampleMatcher.matchingAll().withIgnoreCase().withIgnoreNullValues().withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
+        Example<Esercizio> example = Example.of(esercizio, matcher);
+
+        result = esercizioRepository.findAll(example, pageable);
+
+        return ResponseEntity.ok(result);
     }
 
     public List<Esercizio> getAllByIdList(List<Long> idList) {

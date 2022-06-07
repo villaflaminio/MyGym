@@ -1,20 +1,15 @@
-package com.salvatorechiacchio.mygym.model.dto;
+package com.salvatorechiacchio.mygym.model.dto.filter;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
-public class AbbonamentoDto implements Serializable {
+public class AbbonamentoDtoFilter implements Serializable {
     private Long id;
-    @NotNull
-    @Size(min = 1, max = 50)
     private String nome;
     private float costo;
-    @NotNull
     private LocalDate dataInizio;
     private LocalDate dataFine;
     private boolean pagato;

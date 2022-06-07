@@ -4,13 +4,17 @@ import com.salvatorechiacchio.mygym.model.Esercizio;
 import com.salvatorechiacchio.mygym.model.User;
 import com.salvatorechiacchio.mygym.model.dto.SchedaAllenamentoDto;
 import com.salvatorechiacchio.mygym.model.SchedaAllenamento;
+import com.salvatorechiacchio.mygym.model.dto.filter.PalestraDtoFilter;
+import com.salvatorechiacchio.mygym.model.dto.filter.SchedaAllenamentoDtoFilter;
 import com.salvatorechiacchio.mygym.repository.SchedaAllenamentoRepository;
 import com.salvatorechiacchio.mygym.security.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -90,6 +94,28 @@ public class SchedaAllenamentoService {
             throw new RuntimeException(e);
 
         }
+    }
+
+    public ResponseEntity<Page<SchedaAllenamento>> filter(SchedaAllenamentoDtoFilter probe, Integer page, Integer size, String sortField, String sortDirection){
+        Pageable pageable;
+        Page<SchedaAllenamento> result;
+        SchedaAllenamento schedaAllenamento = new SchedaAllenamento();
+        if (probe != null) {
+            copyNonNullProperties(probe, schedaAllenamento);
+        }
+
+        if (StringUtils.isEmpty(sortField)) {
+            pageable = PageRequest.of(page, size);
+        } else {
+            Sort.Direction dir = StringUtils.isEmpty(sortDirection) ? Sort.Direction.ASC : Sort.Direction.valueOf(sortDirection.trim().toUpperCase());
+            pageable = PageRequest.of(page, size, dir, sortField);
+        }
+        ExampleMatcher matcher = ExampleMatcher.matchingAll().withIgnoreCase().withIgnoreNullValues().withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
+        Example<SchedaAllenamento> example = Example.of(schedaAllenamento, matcher);
+
+        result = schedaAllenamentoRepository.findAll(example, pageable);
+
+        return ResponseEntity.ok(result);
     }
 
     // ===========================================================================
