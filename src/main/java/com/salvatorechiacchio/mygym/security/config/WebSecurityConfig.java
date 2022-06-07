@@ -94,34 +94,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/authenticate").permitAll()
-
-                .antMatchers("/api/register/user").permitAll()
-                .antMatchers("/api/register/admin").permitAll()
-                .antMatchers("/category/*").permitAll()
-                .antMatchers("/news/*").permitAll()
-                .antMatchers("/news/*/*").permitAll()
-                .antMatchers("/place/*").permitAll()
-                .antMatchers("/referralPerson/*").permitAll()
-                .antMatchers("/secretary/*").permitAll()
-                .antMatchers("/structure/*").permitAll()
-                .antMatchers("/structure/*/*").permitAll()
-                .antMatchers("/settingsdesctiption/*").permitAll()
-                .antMatchers("/location/*").permitAll()
-                .antMatchers("/test/*").permitAll()
-
-
-
-                .antMatchers("/api/category/*").hasAuthority("ROLE_SECRETARY")
-                .antMatchers("/api/news/*").hasAuthority("ROLE_SECRETARY")
-                .antMatchers("/api/referralPerson/*").hasAuthority("ROLE_SECRETARY")
-                .antMatchers("/api/secretary/*").hasAuthority("ROLE_SECRETARY")
-                .antMatchers("/api/structure/*").hasAuthority("ROLE_SECRETARY")
-
-                .antMatchers("/api/testUser").hasAuthority("ROLE_USER")
-                .antMatchers("/api/testSecretary").hasAuthority("ROLE_SECRETARY")
-                .antMatchers("/api/testAdminSecretary").hasAuthority("ROLE_ADMIN_SECRETARY")
-                .antMatchers("/api/testAdmin").hasAuthority("ROLE_ADMIN")
+//                .antMatchers("/api/register/user").permitAll()
+//                .antMatchers("/api/register/admin").permitAll()
+//                .antMatchers("/category/*").permitAll()
+//                .antMatchers("/news/*").permitAll()
+//                .antMatchers("/news/*/*").permitAll()
+//                .antMatchers("/place/*").permitAll()
+//                .antMatchers("/referralPerson/*").permitAll()
+//                .antMatchers("/secretary/*").permitAll()
+//                .antMatchers("/structure/*").permitAll()
+//                .antMatchers("/structure/*/*").permitAll()
+//                .antMatchers("/settingsdesctiption/*").permitAll()
+//                .antMatchers("/location/*").permitAll()
+//                .antMatchers("/test/*").permitAll()
+//
+//
+//
+//                .antMatchers("/api/category/*").hasAuthority("ROLE_SECRETARY")
+//                .antMatchers("/api/news/*").hasAuthority("ROLE_SECRETARY")
+//                .antMatchers("/api/referralPerson/*").hasAuthority("ROLE_SECRETARY")
+//                .antMatchers("/api/secretary/*").hasAuthority("ROLE_SECRETARY")
+//                .antMatchers("/api/structure/*").hasAuthority("ROLE_SECRETARY")
+//
+//                .antMatchers("/api/testUser").hasAuthority("ROLE_USER")
+//                .antMatchers("/api/testSecretary").hasAuthority("ROLE_SECRETARY")
+//                .antMatchers("/api/testAdminSecretary").hasAuthority("ROLE_ADMIN_SECRETARY")
+//                .antMatchers("/api/testAdmin").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/**").permitAll()
 
                 .anyRequest().authenticated()
 

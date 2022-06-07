@@ -1,4 +1,4 @@
-package com.salvatorechiacchio.mygym.component;
+package com.salvatorechiacchio.mygym.config;
 
 
 import com.salvatorechiacchio.mygym.exception.UtilsException;
