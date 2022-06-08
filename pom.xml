@@ -15,9 +15,10 @@
     <description>MyGym</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <jjwt.version>0.10.6</jjwt.version>
         <dockerfile-maven-plugin.version>1.4.12</dockerfile-maven-plugin.version>
+
 
     </properties>
     <dependencies>
