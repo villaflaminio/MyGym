@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Service per la gestione degli esercizi.
+ */
 @Slf4j
 @Service
 @Transactional
@@ -30,64 +33,103 @@ public class EsercizioService {
     @Autowired
     private EsercizioRepository esercizioRepository;
 
+    /**
+     * @param esercizioDto esercizio da salvare
+     * @return esercizio salvato
+     */
     public Esercizio save(EsercizioDto esercizioDto) {
+        // Creo l'esercizio
         try {
             Esercizio esercizio = new Esercizio();
             BeanUtils.copyProperties(esercizioDto, esercizio);
             esercizio.setId(null);
             return esercizioRepository.save(esercizio);
-        }catch (Exception e){
+        }catch (Exception e){ // Se ci sono errori, lancio una eccezione
             log.error("errore salvataggio esercizio", e);
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * @param id id dell'esercizio da eliminare
+     */
     public void deleteById(Long id) {
         esercizioRepository.deleteById(id);
     }
 
+    /**
+     * @return lista di tutti gli esercizi
+     */
     public List<Esercizio> findAll() {
         return esercizioRepository.findAll();
     }
 
+    /**
+     * @param id id dell'esercizio da cercare
+     * @return esercizio cercato
+     */
     public Esercizio findById(Long id) {
+        // Cerco l'esercizio con l'id specificato e se non esiste, lancio una eccezione
         return esercizioRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
+    /**
+     * @param esercizioDto esercizio modificato
+     * @param id id dell'esercizio da modificare
+     * @return esercizio modificato
+     */
     public Esercizio update(EsercizioDto esercizioDto, Long id) {
+        // Cerco l'esercizio con l'id specificato e se non esiste, lancio una eccezione
         Optional<Esercizio> esercizioOld = esercizioRepository.findById(id);
         esercizioDto.setId(id);
         if (esercizioOld.isPresent()) {
+            // Se esiste, lo modifico
             copyNonNullProperties(esercizioDto, esercizioOld.get());
             esercizioOld.get().setId(id);
+
+            // Salvo l'esercizio
             return esercizioRepository.save(esercizioOld.get());
-        }
-        else {
+        } else {
             throw new ResourceNotFoundException();
         }
     }
 
+    /**+
+     * @param probe esercizio utilizzato per filtrare
+     * @param page page della paginazione
+     * @param size size della paginazione
+     * @param sortField campo di ordinamento
+     * @param sortDirection direzione di ordinamento
+     * @return lista di esercizi filtrati
+     */
     public ResponseEntity<Page<Esercizio>> filter(Esercizio probe, Integer page, Integer size, String sortField, String sortDirection){
         Pageable pageable;
-        Page<Esercizio> result;
+
+        // Controllo se l'esercizio da filtrare è nullo
         if (probe == null) {
-            probe = new Esercizio();
+            probe = new Esercizio(); // Se è nullo, creo un nuovo esercizio
         }
 
+        // Controllo se il campo di ordinamento è nullo
         if (StringUtils.isEmpty(sortField)) {
-            pageable = PageRequest.of(page, size);
+            pageable = PageRequest.of(page, size); // Se è nullo, ordino per id
         } else {
+            // Se non è nullo, ordino per il campo specificato
             Sort.Direction dir = StringUtils.isEmpty(sortDirection) ? Sort.Direction.ASC : Sort.Direction.valueOf(sortDirection.trim().toUpperCase());
             pageable = PageRequest.of(page, size, dir, sortField);
         }
+
+        // Filtro gli esercizi
         ExampleMatcher matcher = ExampleMatcher.matchingAll().withIgnoreCase().withIgnoreNullValues().withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
         Example<Esercizio> example = Example.of(probe, matcher);
 
-        result = esercizioRepository.findAll(example, pageable);
-
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(esercizioRepository.findAll(example, pageable));
     }
 
+    /**
+     * @param idList lista di id degli esercizi da ottenere
+     * @return lista di esercizi con gli id specificati
+     */
     public List<Esercizio> getAllByIdList(List<Long> idList) {
         return esercizioRepository.findAllById(idList);
     }

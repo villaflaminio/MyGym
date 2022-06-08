@@ -25,6 +25,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Service per gestione abbonamento
+ */
 @Slf4j
 @Service
 @Transactional
@@ -38,61 +41,116 @@ public class AbbonamentoService {
     @Autowired
     PalestraRepository palestraRepository;
 
+    /**
+     * @param abbonamentoDto abbonamento da salvare
+     * @return abbonamento salvato
+     */
     public Abbonamento save(AbbonamentoDto abbonamentoDto)  {
         try {
+            // Controllo se l'utente esiste
             User user = userRepository.findById(abbonamentoDto.getIdUtente()).orElseThrow(() -> new Exception("user non trovato"));
+
+            // Controllo se la palestra esiste
             Palestra palestra = palestraRepository.findById(abbonamentoDto.getIdPalestra()).orElseThrow(() -> new Exception("palestra non trovata"));
+
+            // Creo l'abbonamento
             Abbonamento abbonamento = new Abbonamento();
+
+            // Copio i dati
             BeanUtils.copyProperties(abbonamentoDto, abbonamento);
-            abbonamento.setPalestra(palestra);
+
+            // Setto l'utente
             abbonamento.setUtente(user);
+
+            // Setto la palestra
+            abbonamento.setPalestra(palestra);
             abbonamento.setId(null);
+
+            // Salvo l'abbonamento
             return abbonamentoRepository.save(abbonamento);
         }catch (Exception e){
             log.error("errore salvataggio abbonamento", e);
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * @param id identificativo dell'abbonamento da eliminare
+     */
     public void deleteById(Long id) {
         abbonamentoRepository.deleteById(id);
     }
+
+    /**
+     * @param id identificativo dell'abbonamento da cercare
+     * @return abbonamento cercato
+     */
     public Abbonamento findById(Long id) {
+        // Controllo se l'abbonamento esiste e lo restituisco, altrimenti lancio eccezione di not found
         return abbonamentoRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
+
+    /**
+     * @return lista di tutti gli abbonamenti
+     */
     public List<Abbonamento> findAll() {
         return abbonamentoRepository.findAll();
     }
+
+    /**
+     * @param abbonamentoDto abbonamento modificato
+     * @param id identificativo dell'abbonamento da modificare
+     * @return abbonamento modificato
+     */
     public Abbonamento update(AbbonamentoDto abbonamentoDto, Long id) {
+        // Ottengo abbonamento da modificare
         Optional<Abbonamento> abbonamentoOld = abbonamentoRepository.findById(id);
         abbonamentoDto.setId(id);
+
+        // Controllo se l'abbonamento esiste
         if (abbonamentoOld.isPresent()) {
+            // Copio i dati
             copyNonNullProperties(abbonamentoDto, abbonamentoOld.get());
             abbonamentoDto.setId(id);
-            return  abbonamentoRepository.save(abbonamentoOld.get());
-        }
-        else {
+
+            // Salvo l'abbonamento
+            return abbonamentoRepository.save(abbonamentoOld.get());
+        }else{
+            // Se non esiste lancio eccezione di not found
             throw new ResourceNotFoundException();
         }
     }
+
+    /**
+     * @param probe abbonamento utilizzato per filtrare
+     * @param page pagina da visualizzare
+     * @param size numero di elementi per pagina
+     * @param sortField campo per ordinamento
+     * @param sortDirection direzione di ordinamento
+     * @return lista di abbonamenti filtrati
+     */
     public ResponseEntity<Page<Abbonamento>> filter(Abbonamento probe, Integer page, Integer size, String sortField, String sortDirection){
         Pageable pageable;
-        Page<Abbonamento> result;
+
+        // Controllo se l'abbonamento da filtrare è nullo.
         if (probe == null) {
-            probe = new Abbonamento();
+            probe = new Abbonamento(); // Se è nullo creo un nuovo abbonamento
         }
 
+        // Controllo se il campo di ordinamento è nullo.
         if (StringUtils.isEmpty(sortField)) {
-            pageable = PageRequest.of(page, size);
+            pageable = PageRequest.of(page, size); // Se è nullo ordino per id
         } else {
+            // Se non è nullo ordino per il campo di ordinamento
             Sort.Direction dir = StringUtils.isEmpty(sortDirection) ? Sort.Direction.ASC : Sort.Direction.valueOf(sortDirection.trim().toUpperCase());
             pageable = PageRequest.of(page, size, dir, sortField);
         }
+
+        // Filtro gli abbonamenti
         ExampleMatcher matcher = ExampleMatcher.matchingAll().withIgnoreCase().withIgnoreNullValues().withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
         Example<Abbonamento> example = Example.of(probe, matcher);
 
-        result = abbonamentoRepository.findAll(example, pageable);
-
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(abbonamentoRepository.findAll(example, pageable));
     }
 
     // ===========================================================================
