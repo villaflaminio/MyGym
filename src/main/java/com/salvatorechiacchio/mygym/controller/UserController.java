@@ -82,6 +82,7 @@ public class UserController {
 
         return userHelper.registerAdmin(userDTO);
     }
+
     private void setUser(UserDTO userDTO) {
         Optional<User> userLogged = userService.getUserWithAuthorities();
         if (userLogged.isPresent())

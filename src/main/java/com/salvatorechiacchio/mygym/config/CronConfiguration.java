@@ -1,6 +1,5 @@
 package com.salvatorechiacchio.mygym.config;
 
-import com.salvatorechiacchio.mygym.model.Misurazione;
 import com.salvatorechiacchio.mygym.model.Sensore;
 import com.salvatorechiacchio.mygym.model.dto.MisurazioneDTO;
 import com.salvatorechiacchio.mygym.service.SensoreService;
@@ -9,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
@@ -50,9 +46,9 @@ public class CronConfiguration {
         misurazioneDto.setMisurazione(randomMisurazione);
         misurazioneDto.setIdSensore(sensori.get(randomSensore).getId());
 
-        if (sensoreService.nuovaRilevazione(misurazioneDto).getStatusCode() == HttpStatus.OK){
+        if (sensoreService.nuovaRilevazione(misurazioneDto).getStatusCode() == HttpStatus.OK) {
             log.info("Successfully executed the cron job. | Inserted Rilevazione: " + misurazioneDto);
-        }else{
+        } else {
             log.error("Error executing the cron job. | Not inserted Rilevazione: " + misurazioneDto);
         }
     }

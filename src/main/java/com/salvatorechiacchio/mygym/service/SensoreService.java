@@ -20,10 +20,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service per la gestione dei sensori
@@ -160,7 +161,7 @@ public class SensoreService {
         return ResponseEntity.ok(sensoreRepository.findAll(example, pageable));
     }
 
-    public ResponseEntity<Void> nuovaRilevazione (MisurazioneDTO misurazioneDTO){
+    public ResponseEntity<Void> nuovaRilevazione(MisurazioneDTO misurazioneDTO) {
         try {
             // Ottengo il sensore in cui inserire la misurazione.
             Sensore sensore = sensoreRepository.findById(misurazioneDTO.getIdSensore()).orElseThrow(() -> new Exception("sensore non trovato"));
@@ -176,7 +177,7 @@ public class SensoreService {
             sensoreRepository.save(sensore);
             misurazioneRepository.save(misurazione);
             return ResponseEntity.ok().build();
-        }catch(Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }
