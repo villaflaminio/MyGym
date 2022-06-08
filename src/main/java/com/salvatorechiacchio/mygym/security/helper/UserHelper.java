@@ -36,16 +36,14 @@ import static com.salvatorechiacchio.mygym.exception.UserException.userException
 
 @Component
 public class UserHelper {
+    private final TokenProvider tokenProvider;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
     @Autowired
     UserRepository userRepository;
     @Autowired
     AuthorityRepository authorityRepository;
     @Autowired
     private PasswordEncoder bcryptEncoder;
-
-
-    private final TokenProvider tokenProvider;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     public UserHelper(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder) {
         this.tokenProvider = tokenProvider;
@@ -70,35 +68,6 @@ public class UserHelper {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
         return new ResponseEntity<>(new JWTToken(jwt, userRepository.findByEmail(loginDto.email), authorities), httpHeaders, HttpStatus.OK);
-    }
-
-    /**
-     * Object to return as body in JWT Authentication.
-     */
-    public static class JWTToken {
-
-        private String idToken;
-        private final UserDTO user;
-
-        JWTToken(String idToken, User user, String authorities) {
-            this.idToken = idToken;
-            this.user = new UserDTO(user);
-            this.user.role = authorities;
-        }
-
-        @JsonProperty("id_token")
-        String getIdToken() {
-            return idToken;
-        }
-
-        @JsonProperty("user")
-        UserDTO getUser() {
-            return user;
-        }
-
-        void setIdToken(String idToken) {
-            this.idToken = idToken;
-        }
     }
 
     public void ceckUser(UserDTO userDTO) {
@@ -133,7 +102,6 @@ public class UserHelper {
         return register(userDTO);
     }
 
-
     private User register(UserDTO userDTO) {
         ceckUser(userDTO);
         if (!userRepository.existsByEmail(userDTO.email) && !role(userDTO).isEmpty()) {
@@ -164,6 +132,35 @@ public class UserHelper {
                 throw new UserException(AUTHORITY_NOT_EXIST);
         }
         return author;
+    }
+
+    /**
+     * Object to return as body in JWT Authentication.
+     */
+    public static class JWTToken {
+
+        private final UserDTO user;
+        private String idToken;
+
+        JWTToken(String idToken, User user, String authorities) {
+            this.idToken = idToken;
+            this.user = new UserDTO(user);
+            this.user.role = authorities;
+        }
+
+        @JsonProperty("id_token")
+        String getIdToken() {
+            return idToken;
+        }
+
+        void setIdToken(String idToken) {
+            this.idToken = idToken;
+        }
+
+        @JsonProperty("user")
+        UserDTO getUser() {
+            return user;
+        }
     }
 
 

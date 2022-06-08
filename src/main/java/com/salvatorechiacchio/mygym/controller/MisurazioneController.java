@@ -20,10 +20,10 @@ public class MisurazioneController {
     private MisurazioneService misurazioneService;
 
     /**
-     * @param probe misurazione con i campi da filtrare
-     * @param page numero di pagina
-     * @param size numero di elementi per pagina
-     * @param sortField campo per ordinamento
+     * @param probe         misurazione con i campi da filtrare
+     * @param page          numero di pagina
+     * @param size          numero di elementi per pagina
+     * @param sortField     campo per ordinamento
      * @param sortDirection direzione di ordinamento
      * @return la lista di misurazioni filtrate
      */

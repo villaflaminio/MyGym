@@ -2,6 +2,10 @@ package com.salvatorechiacchio.mygym.exception;
 
 public class UserException extends RuntimeException {
 
+    public UserException(userExceptionCode message) {
+        super(message.toString());
+    }
+
     public enum userExceptionCode {
         PARAMETER_NULL,
         EMAIL_NOT_EXIST,
@@ -9,10 +13,6 @@ public class UserException extends RuntimeException {
         AUTHORITY_NOT_EXIST,
         USER_NOT_LOGGED_IN,
         AUTHORITY_UNREACHABALE
-    }
-
-    public UserException(userExceptionCode message) {
-        super(message.toString());
     }
 
 }

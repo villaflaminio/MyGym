@@ -73,10 +73,10 @@ public class SensoreController {
 
     /**
      * @param sensoreDto DTO del sensore con i campi aggiornati
-     * @param id del sensore da aggiornare
+     * @param id         del sensore da aggiornare
      * @return il sensore aggiornato
      */
-    @Operation (summary = "update", description = "Aggiorna un sensore")
+    @Operation(summary = "update", description = "Aggiorna un sensore")
     @PutMapping("/{id}")
     public ResponseEntity<Sensore> update(@RequestBody SensoreDto sensoreDto, @PathVariable("id") Long id) {
         return ResponseEntity.ok(sensoreService.update(sensoreDto, id));
@@ -92,10 +92,10 @@ public class SensoreController {
     }
 
     /**
-     * @param probe oggetto per filtrare i sensori
-     * @param page numero della pagina
-     * @param size numero di elementi per pagina
-     * @param sortField campo per ordinare i sensori
+     * @param probe         oggetto per filtrare i sensori
+     * @param page          numero della pagina
+     * @param size          numero di elementi per pagina
+     * @param sortField     campo per ordinare i sensori
      * @param sortDirection direzione di ordinamento
      * @return I sensori filtrati
      */

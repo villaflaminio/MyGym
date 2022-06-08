@@ -20,10 +20,8 @@ import java.io.IOException;
  */
 public class JWTFilter extends GenericFilterBean {
 
-    private static final Logger LOG = LoggerFactory.getLogger(JWTFilter.class);
-
     public static final String AUTHORIZATION_HEADER = "Authorization";
-
+    private static final Logger LOG = LoggerFactory.getLogger(JWTFilter.class);
     private final TokenProvider tokenProvider;
 
     public JWTFilter(TokenProvider tokenProvider) {
