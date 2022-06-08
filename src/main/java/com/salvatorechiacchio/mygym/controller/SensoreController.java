@@ -54,7 +54,7 @@ public class SensoreController {
         return ResponseEntity.ok(sensoreService.update(sensoreDto, id));
     }
 
-    @PostMapping("/api/nuovaRilevazione")
+    @PostMapping("/nuovaRilevazione")
     public ResponseEntity<Void> nuovaRilevazione(@RequestBody MisurazioneDTO misurazioneDTO) {
         return sensoreService.nuovaRilevazione(misurazioneDTO);
     }

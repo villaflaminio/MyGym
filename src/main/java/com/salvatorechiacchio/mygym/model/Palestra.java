@@ -22,13 +22,11 @@ public class Palestra {
 
 
     @OneToMany(mappedBy = "palestra")
-    //@JsonBackReference(value = "abbonamenti")
     private List<Abbonamento> abbonamenti;
 
 
     @OneToOne
     @JoinColumn(name = "sensore_id", referencedColumnName = "id")
-    //@JsonBackReference(value = "sensore")
     private Sensore sensore;
 
 
@@ -43,10 +41,10 @@ public class Palestra {
     private String indirizzo;
 
     @NotNull
-    private String latitudine;
+    private Double latitudine;
 
     @NotNull
-    private String longitudine;
+    private Double longitudine;
 
     private Boolean abilitato;
 }

@@ -38,5 +38,6 @@ public class Esercizio {
     @NotNull
     private int numeroRipetizioni;
 
-
+    @NotNull
+    private String tipo;
 }

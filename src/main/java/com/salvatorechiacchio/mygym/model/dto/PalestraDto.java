@@ -16,8 +16,8 @@ public class PalestraDto implements Serializable {
     @NotNull
     private String indirizzo;
     @NotNull
-    private String latitudine;
+    private Double latitudine;
     @NotNull
-    private String longitudine;
+    private Double longitudine;
     private Boolean abilitato;
 }
