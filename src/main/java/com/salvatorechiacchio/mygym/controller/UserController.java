@@ -31,8 +31,8 @@ public class UserController {
     /**
      * Dati per il login nel seguente formato
      * {
-     * "email" : "viflaadminsecretary@gmail.com",
-     * "password" : "flaminio"
+     * "email" : "mariorossi@gmail.com",
+     * "password" : "mario"
      * }
      */
     @CrossOrigin(origins = "*")
@@ -44,10 +44,10 @@ public class UserController {
     /**
      * Dati per register nel seguente formato
      * {
-     * "email" : "viflaadminsecretary@gmail.com",
-     * "password" : "flaminio",
-     * "firstName" : "flaminio",
-     * "lastName" : "villa",
+     * "email" : "mariorossi@gmail.com",
+     * "password" : "ciao1234",
+     * "firstName" : "mario",
+     * "lastName" : "rossi",
      * "region" : 3
      * }
      */
@@ -69,10 +69,10 @@ public class UserController {
     /**
      * Dati per register nel seguente formato
      * {
-     * "email" : "viflaadminsecretary@gmail.com",
-     * "password" : "flaminio",
-     * "firstName" : "flaminio",
-     * "lastName" : "villa",
+     * "email" : "mariorossi@gmail.com",
+     * "password" : "mario",
+     * "firstName" : "mario",
+     * "lastName" : "rossi",
      * <p>
      * }
      */
