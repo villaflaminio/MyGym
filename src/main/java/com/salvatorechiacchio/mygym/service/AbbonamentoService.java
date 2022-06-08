@@ -74,7 +74,6 @@ public class AbbonamentoService {
             throw new ResourceNotFoundException();
         }
     }
-
     public ResponseEntity<Page<Abbonamento>> filter(Abbonamento probe, Integer page, Integer size, String sortField, String sortDirection){
         Pageable pageable;
         Page<Abbonamento> result;

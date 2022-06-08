@@ -22,6 +22,7 @@ import java.util.Optional;
 @Slf4j
 @Tag(name = "Sensore")
 public class SensoreController {
+
     @Autowired
     private SensoreService sensoreService;
 
