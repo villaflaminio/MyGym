@@ -12,6 +12,7 @@ import java.util.Set;
 @Data
 public class UserDTO {
 
+    public Long id;
     public String email;
     public String password;
     public String role;
@@ -20,6 +21,7 @@ public class UserDTO {
     public User callUser;
 
     public UserDTO(User user) {
+        this.id = user.getId();
         this.email = user.getEmail();
         this.nome = user.getNome();
         this.cognome = user.getCognome();

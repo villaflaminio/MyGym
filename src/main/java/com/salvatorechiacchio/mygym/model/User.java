@@ -22,7 +22,6 @@ import java.util.Set;
 @Builder
 public class User {
 
-    @JsonIgnore
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
