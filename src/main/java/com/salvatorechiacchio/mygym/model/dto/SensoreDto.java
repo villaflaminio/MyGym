@@ -10,6 +10,5 @@ public class SensoreDto implements Serializable {
     private Long id;
     @Size(max = 50)
     private String nome;
-    private Float misurazione;
     private Long idPalestra;
 }

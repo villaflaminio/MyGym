@@ -1,6 +1,7 @@
 package com.salvatorechiacchio.mygym.controller;
 
 import com.salvatorechiacchio.mygym.model.Sensore;
+import com.salvatorechiacchio.mygym.model.dto.MisurazioneDTO;
 import com.salvatorechiacchio.mygym.model.dto.SensoreDto;
 import com.salvatorechiacchio.mygym.service.SensoreService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,7 +20,6 @@ import java.util.Optional;
 @Slf4j
 @Tag(name = "Sensore")
 public class SensoreController {
-
     @Autowired
     private SensoreService sensoreService;
 
@@ -52,6 +52,11 @@ public class SensoreController {
     @PutMapping("/{id}")
     public ResponseEntity<Sensore> update(@RequestBody SensoreDto sensoreDto, @PathVariable("id") Long id) {
         return ResponseEntity.ok(sensoreService.update(sensoreDto, id));
+    }
+
+    @PostMapping("/api/nuovaRilevazione")
+    public ResponseEntity<Void> nuovaRilevazione(@RequestBody MisurazioneDTO misurazioneDTO) {
+        return sensoreService.nuovaRilevazione(misurazioneDTO);
     }
 
     @PostMapping("/filter")

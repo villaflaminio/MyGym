@@ -1,8 +1,11 @@
 package com.salvatorechiacchio.mygym.service;
 
+import com.salvatorechiacchio.mygym.model.Misurazione;
 import com.salvatorechiacchio.mygym.model.Palestra;
 import com.salvatorechiacchio.mygym.model.Sensore;
+import com.salvatorechiacchio.mygym.model.dto.MisurazioneDTO;
 import com.salvatorechiacchio.mygym.model.dto.SensoreDto;
+import com.salvatorechiacchio.mygym.repository.MisurazioneRepository;
 import com.salvatorechiacchio.mygym.repository.PalestraRepository;
 import com.salvatorechiacchio.mygym.repository.SensoreRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +20,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.*;
 
 /**
  * Service per la gestione dei sensori
@@ -32,6 +35,8 @@ public class SensoreService {
     @Autowired
     private SensoreRepository sensoreRepository;
 
+    @Autowired
+    private MisurazioneRepository misurazioneRepository;
     @Autowired
     private PalestraRepository palestraRepository;
 
@@ -153,6 +158,27 @@ public class SensoreService {
         Example<Sensore> example = Example.of(probe, matcher);
 
         return ResponseEntity.ok(sensoreRepository.findAll(example, pageable));
+    }
+
+    public ResponseEntity<Void> nuovaRilevazione (MisurazioneDTO misurazioneDTO){
+        try {
+            // Ottengo il sensore in cui inserire la misurazione.
+            Sensore sensore = sensoreRepository.findById(misurazioneDTO.getIdSensore()).orElseThrow(() -> new Exception("sensore non trovato"));
+
+            Misurazione misurazione = new Misurazione();
+            BeanUtils.copyProperties(misurazioneDTO, misurazione);
+            misurazione.setTimestamp(LocalDateTime.now());
+            misurazione.setSensore(sensore);
+
+            // Aggiungo la misurazione al sensore
+            sensore.getMisurazioni().add(misurazione);
+
+            sensoreRepository.save(sensore);
+            misurazioneRepository.save(misurazione);
+            return ResponseEntity.ok().build();
+        }catch(Exception e){
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     // ===========================================================================
