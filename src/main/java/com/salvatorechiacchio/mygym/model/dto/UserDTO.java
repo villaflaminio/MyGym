@@ -1,8 +1,12 @@
 package com.salvatorechiacchio.mygym.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.salvatorechiacchio.mygym.model.Authority;
 import com.salvatorechiacchio.mygym.model.User;
 import lombok.Data;
+
+import java.util.List;
+import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
@@ -28,4 +32,6 @@ public class UserDTO {
         this.nome = nome;
         this.cognome = cognome;
     }
+
+
 }

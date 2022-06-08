@@ -1,16 +1,17 @@
 package com.salvatorechiacchio.mygym.security.helper;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.google.common.base.Preconditions;
 import com.salvatorechiacchio.mygym.exception.UserException;
-import com.salvatorechiacchio.mygym.model.Authority;
-import com.salvatorechiacchio.mygym.model.User;
-import com.salvatorechiacchio.mygym.model.dto.LoginDTO;
-import com.salvatorechiacchio.mygym.model.dto.UserDTO;
-import com.salvatorechiacchio.mygym.repository.AuthorityRepository;
-import com.salvatorechiacchio.mygym.repository.UserRepository;
 import com.salvatorechiacchio.mygym.security.jwt.JWTFilter;
 import com.salvatorechiacchio.mygym.security.jwt.TokenProvider;
+import com.salvatorechiacchio.mygym.model.Authority;
+import com.salvatorechiacchio.mygym.model.User;
+import com.salvatorechiacchio.mygym.repository.AuthorityRepository;
+import com.salvatorechiacchio.mygym.repository.UserRepository;
+import com.salvatorechiacchio.mygym.model.dto.LoginDTO;
+import com.salvatorechiacchio.mygym.model.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,7 @@ import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.salvatorechiacchio.mygym.exception.UserException.userExceptionCode.AUTHORITY_NOT_EXIST;
 import static com.salvatorechiacchio.mygym.exception.UserException.userExceptionCode.USER_ALREADY_EXISTS;
@@ -59,13 +62,15 @@ public class UserHelper {
         //SecurityContextHolder è una classe di supporto, che forniscono l'accesso al contesto di protezione
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        boolean rememberMe = loginDto.rememberMe != null && loginDto.isRememberMe();
+        boolean rememberMe = (loginDto.rememberMe == null) ? false : loginDto.isRememberMe();
         String jwt = tokenProvider.createToken(authentication, rememberMe);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
-
-        return new ResponseEntity<>(new JWTToken(jwt, userRepository.findByEmail(loginDto.email)), httpHeaders, HttpStatus.OK);
+        String authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+        return new ResponseEntity<>(new JWTToken(jwt,userRepository.findByEmail(loginDto.email),authorities), httpHeaders, HttpStatus.OK);
     }
 
     /**
@@ -75,22 +80,20 @@ public class UserHelper {
 
         private String idToken;
         private final UserDTO user;
-
-        JWTToken(String idToken, User user) {
+        JWTToken(String idToken, User user,String authorities) {
             this.idToken = idToken;
             this.user = new UserDTO(user);
+            this.user.role = authorities;
         }
 
         @JsonProperty("id_token")
         String getIdToken() {
             return idToken;
         }
-
         @JsonProperty("user")
         UserDTO getUser() {
             return user;
         }
-
         void setIdToken(String idToken) {
             this.idToken = idToken;
         }
@@ -160,6 +163,7 @@ public class UserHelper {
         }
         return author;
     }
+
 
 
 }
