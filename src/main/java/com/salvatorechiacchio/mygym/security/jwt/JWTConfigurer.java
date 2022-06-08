@@ -7,10 +7,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 /**
  * Aggiunge il TokenProvider alla configuration del JWTFilter, e lo instanzia come sigleton
- * **/
+ **/
 public class JWTConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-    private TokenProvider tokenProvider;
+    private final TokenProvider tokenProvider;
 
     public JWTConfigurer(TokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;

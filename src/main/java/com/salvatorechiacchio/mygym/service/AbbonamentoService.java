@@ -4,7 +4,6 @@ import com.salvatorechiacchio.mygym.model.Abbonamento;
 import com.salvatorechiacchio.mygym.model.Palestra;
 import com.salvatorechiacchio.mygym.model.User;
 import com.salvatorechiacchio.mygym.model.dto.AbbonamentoDto;
-import com.salvatorechiacchio.mygym.model.dto.filter.AbbonamentoDtoFilter;
 import com.salvatorechiacchio.mygym.repository.AbbonamentoRepository;
 import com.salvatorechiacchio.mygym.repository.PalestraRepository;
 import com.salvatorechiacchio.mygym.repository.UserRepository;
@@ -45,7 +44,7 @@ public class AbbonamentoService {
      * @param abbonamentoDto abbonamento da salvare
      * @return abbonamento salvato
      */
-    public Abbonamento save(AbbonamentoDto abbonamentoDto)  {
+    public Abbonamento save(AbbonamentoDto abbonamentoDto) {
         try {
             // Controllo se l'utente esiste
             User user = userRepository.findById(abbonamentoDto.getIdUtente()).orElseThrow(() -> new Exception("user non trovato"));
@@ -68,7 +67,7 @@ public class AbbonamentoService {
 
             // Salvo l'abbonamento
             return abbonamentoRepository.save(abbonamento);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("errore salvataggio abbonamento", e);
             throw new RuntimeException(e);
         }
@@ -99,7 +98,7 @@ public class AbbonamentoService {
 
     /**
      * @param abbonamentoDto abbonamento modificato
-     * @param id identificativo dell'abbonamento da modificare
+     * @param id             identificativo dell'abbonamento da modificare
      * @return abbonamento modificato
      */
     public Abbonamento update(AbbonamentoDto abbonamentoDto, Long id) {
@@ -115,21 +114,21 @@ public class AbbonamentoService {
 
             // Salvo l'abbonamento
             return abbonamentoRepository.save(abbonamentoOld.get());
-        }else{
+        } else {
             // Se non esiste lancio eccezione di not found
             throw new ResourceNotFoundException();
         }
     }
 
     /**
-     * @param probe abbonamento utilizzato per filtrare
-     * @param page pagina da visualizzare
-     * @param size numero di elementi per pagina
-     * @param sortField campo per ordinamento
+     * @param probe         abbonamento utilizzato per filtrare
+     * @param page          pagina da visualizzare
+     * @param size          numero di elementi per pagina
+     * @param sortField     campo per ordinamento
      * @param sortDirection direzione di ordinamento
      * @return lista di abbonamenti filtrati
      */
-    public ResponseEntity<Page<Abbonamento>> filter(Abbonamento probe, Integer page, Integer size, String sortField, String sortDirection){
+    public ResponseEntity<Page<Abbonamento>> filter(Abbonamento probe, Integer page, Integer size, String sortField, String sortDirection) {
         Pageable pageable;
 
         // Controllo se l'abbonamento da filtrare è nullo.
@@ -157,6 +156,7 @@ public class AbbonamentoService {
     public static void copyNonNullProperties(Object src, Object target) {
         BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
     }
+
     public static String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
         java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();

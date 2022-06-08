@@ -12,6 +12,7 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Optional;
 
 /**
@@ -72,7 +73,7 @@ public class SchedaAllenamentoController {
 
     /**
      * @param schedaAllenamentoDto Dto contenente i dati della scheda di allenamento da aggiornare.
-     * @param id Identificativo della scheda di allenamento da aggiornare.
+     * @param id                   Identificativo della scheda di allenamento da aggiornare.
      * @return La scheda di allenamento aggiornata.
      */
     @Operation(summary = "update", description = "Aggiorna la scheda di allenamento specificata dall'id")
@@ -83,10 +84,10 @@ public class SchedaAllenamentoController {
     }
 
     /**
-     * @param probe Dto contenente i dati dell'esercizio da cercare.
-     * @param page La pagina da cercare.
-     * @param size La dimensione della pagina.
-     * @param sortField Il campo per cui ordinare.
+     * @param probe         Dto contenente i dati dell'esercizio da cercare.
+     * @param page          La pagina da cercare.
+     * @param size          La dimensione della pagina.
+     * @param sortField     Il campo per cui ordinare.
      * @param sortDirection La direzione di ordinamento.
      * @return La pagina di risultati della ricerca.
      */

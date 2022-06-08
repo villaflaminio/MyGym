@@ -1,10 +1,7 @@
 package com.salvatorechiacchio.mygym.controller;
 
-import com.salvatorechiacchio.mygym.model.SchedaAllenamento;
 import com.salvatorechiacchio.mygym.model.Sensore;
 import com.salvatorechiacchio.mygym.model.dto.SensoreDto;
-import com.salvatorechiacchio.mygym.model.dto.filter.SchedaAllenamentoDtoFilter;
-import com.salvatorechiacchio.mygym.model.dto.filter.SensoreDtoFilter;
 import com.salvatorechiacchio.mygym.service.SensoreService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;

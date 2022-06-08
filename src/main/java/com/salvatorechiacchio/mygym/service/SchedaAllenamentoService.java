@@ -1,10 +1,9 @@
 package com.salvatorechiacchio.mygym.service;
 
 import com.salvatorechiacchio.mygym.model.Esercizio;
+import com.salvatorechiacchio.mygym.model.SchedaAllenamento;
 import com.salvatorechiacchio.mygym.model.User;
 import com.salvatorechiacchio.mygym.model.dto.SchedaAllenamentoDto;
-import com.salvatorechiacchio.mygym.model.SchedaAllenamento;
-import com.salvatorechiacchio.mygym.model.dto.filter.SchedaAllenamentoDtoFilter;
 import com.salvatorechiacchio.mygym.repository.SchedaAllenamentoRepository;
 import com.salvatorechiacchio.mygym.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -105,7 +104,7 @@ public class SchedaAllenamentoService {
 
     /**
      * @param schedaAllenamentoDto scheda di allenamento con i campi aggiornati
-     * @param id id della scheda di allenamento da aggiornare
+     * @param id                   id della scheda di allenamento da aggiornare
      * @return scheda di allenamento aggiornata
      */
     public SchedaAllenamento update(SchedaAllenamentoDto schedaAllenamentoDto, Long id) {
@@ -126,7 +125,7 @@ public class SchedaAllenamentoService {
 
                 // Salvo la scheda di allenamento
                 return schedaAllenamentoRepository.save(schedaAllenamentoOld.get());
-            }else {
+            } else {
                 throw new ResourceNotFoundException(); // Se la scheda di allenamento non esiste, lancio una eccezione
             }
         } catch (Exception e) {
@@ -137,14 +136,14 @@ public class SchedaAllenamentoService {
     }
 
     /**
-     * @param probe scheda di allenamento da ottenere
-     * @param page page della lista di schede di allenamento
-     * @param size size della lista di schede di allenamento
-     * @param sortField campo per ordinare la lista
+     * @param probe         scheda di allenamento da ottenere
+     * @param page          page della lista di schede di allenamento
+     * @param size          size della lista di schede di allenamento
+     * @param sortField     campo per ordinare la lista
      * @param sortDirection direzione di ordinamento
      * @return lista di schede di allenamento
      */
-    public ResponseEntity<Page<SchedaAllenamento>> filter(SchedaAllenamento probe, Integer page, Integer size, String sortField, String sortDirection){
+    public ResponseEntity<Page<SchedaAllenamento>> filter(SchedaAllenamento probe, Integer page, Integer size, String sortField, String sortDirection) {
         Pageable pageable;
 
         // Controllo se la scheda di allenamento per filtrare è nulla
@@ -172,6 +171,7 @@ public class SchedaAllenamentoService {
     public static void copyNonNullProperties(Object src, Object target) {
         BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
     }
+
     public static String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
         java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();

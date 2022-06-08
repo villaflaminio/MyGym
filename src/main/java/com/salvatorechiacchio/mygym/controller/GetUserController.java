@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class GetUserController {
 
-   private final UserService userService;
+    private final UserService userService;
 
-   public GetUserController(UserService userService) {
-      this.userService = userService;
-   }
+    public GetUserController(UserService userService) {
+        this.userService = userService;
+    }
 
-   @GetMapping("/user")
-   public ResponseEntity<User> getActualUser() {
-      return ResponseEntity.ok(userService.getUserWithAuthorities().get());
-   }
+    @GetMapping("/user")
+    public ResponseEntity<User> getActualUser() {
+        return ResponseEntity.ok(userService.getUserWithAuthorities().get());
+    }
 }

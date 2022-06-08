@@ -1,7 +1,6 @@
 package com.salvatorechiacchio.mygym.model.dto;
 
 
-import com.salvatorechiacchio.mygym.model.Esercizio;
 import lombok.Data;
 
 import javax.validation.constraints.Size;

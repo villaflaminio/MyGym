@@ -1,10 +1,7 @@
 package com.salvatorechiacchio.mygym.controller;
 
-import com.salvatorechiacchio.mygym.model.Esercizio;
-import com.salvatorechiacchio.mygym.model.dto.PalestraDto;
 import com.salvatorechiacchio.mygym.model.Palestra;
-import com.salvatorechiacchio.mygym.model.dto.filter.EsercizioDtoFilter;
-import com.salvatorechiacchio.mygym.model.dto.filter.PalestraDtoFilter;
+import com.salvatorechiacchio.mygym.model.dto.PalestraDto;
 import com.salvatorechiacchio.mygym.service.PalestraService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,7 +25,7 @@ import java.util.Optional;
 @Tag(name = "Palestra")
 public class PalestraController {
     @Autowired
-    private  PalestraService palestraService;
+    private PalestraService palestraService;
 
     /**
      * @return Tutte le palestre presenti nel database.
@@ -75,7 +72,7 @@ public class PalestraController {
 
     /**
      * @param palestraDto Dto contenente i dati della palestra da modificare.
-     * @param id Identificativo della palestra da modificare.
+     * @param id          Identificativo della palestra da modificare.
      * @return La palestra modificata.
      */
     @Operation(summary = "update", description = "Modifica palestra con identificativo passato")
@@ -86,10 +83,10 @@ public class PalestraController {
     }
 
     /**
-     * @param probe Dto contenente i dati della palestra da filtrare.
-     * @param page Pagina da visualizzare
-     * @param size Numero di elementi per pagina
-     * @param sortField Campo per ordinamento
+     * @param probe         Dto contenente i dati della palestra da filtrare.
+     * @param page          Pagina da visualizzare
+     * @param size          Numero di elementi per pagina
+     * @param sortField     Campo per ordinamento
      * @param sortDirection Direzione di ordinamento
      * @return La pagina di risultati della ricerca.
      */

@@ -1,17 +1,16 @@
 package com.salvatorechiacchio.mygym.security.helper;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import com.google.common.base.Preconditions;
 import com.salvatorechiacchio.mygym.exception.UserException;
-import com.salvatorechiacchio.mygym.security.jwt.JWTFilter;
-import com.salvatorechiacchio.mygym.security.jwt.TokenProvider;
 import com.salvatorechiacchio.mygym.model.Authority;
 import com.salvatorechiacchio.mygym.model.User;
-import com.salvatorechiacchio.mygym.repository.AuthorityRepository;
-import com.salvatorechiacchio.mygym.repository.UserRepository;
 import com.salvatorechiacchio.mygym.model.dto.LoginDTO;
 import com.salvatorechiacchio.mygym.model.dto.UserDTO;
+import com.salvatorechiacchio.mygym.repository.AuthorityRepository;
+import com.salvatorechiacchio.mygym.repository.UserRepository;
+import com.salvatorechiacchio.mygym.security.jwt.JWTFilter;
+import com.salvatorechiacchio.mygym.security.jwt.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -60,13 +59,13 @@ public class UserHelper {
         //SecurityContextHolder è una classe di supporto, che forniscono l'accesso al contesto di protezione
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        boolean rememberMe = (loginDto.rememberMe == null) ? false : loginDto.isRememberMe();
+        boolean rememberMe = loginDto.rememberMe != null && loginDto.isRememberMe();
         String jwt = tokenProvider.createToken(authentication, rememberMe);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
-        return new ResponseEntity<>(new JWTToken(jwt,userRepository.findByEmail(loginDto.email)), httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(new JWTToken(jwt, userRepository.findByEmail(loginDto.email)), httpHeaders, HttpStatus.OK);
     }
 
     /**
@@ -76,6 +75,7 @@ public class UserHelper {
 
         private String idToken;
         private final UserDTO user;
+
         JWTToken(String idToken, User user) {
             this.idToken = idToken;
             this.user = new UserDTO(user);
@@ -85,10 +85,12 @@ public class UserHelper {
         String getIdToken() {
             return idToken;
         }
+
         @JsonProperty("user")
         UserDTO getUser() {
             return user;
         }
+
         void setIdToken(String idToken) {
             this.idToken = idToken;
         }
@@ -158,7 +160,6 @@ public class UserHelper {
         }
         return author;
     }
-
 
 
 }

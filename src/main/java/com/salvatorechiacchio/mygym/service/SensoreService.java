@@ -1,8 +1,8 @@
 package com.salvatorechiacchio.mygym.service;
 
 import com.salvatorechiacchio.mygym.model.Palestra;
-import com.salvatorechiacchio.mygym.model.dto.SensoreDto;
 import com.salvatorechiacchio.mygym.model.Sensore;
+import com.salvatorechiacchio.mygym.model.dto.SensoreDto;
 import com.salvatorechiacchio.mygym.repository.PalestraRepository;
 import com.salvatorechiacchio.mygym.repository.SensoreRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -55,7 +55,7 @@ public class SensoreService {
 
             // Salvo il sensore
             return sensoreRepository.save(sensore);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("errore salvataggio sensore", e);
             throw new RuntimeException(e);
         }
@@ -97,7 +97,7 @@ public class SensoreService {
 
     /**
      * @param sensoreDto sensore aggiornato
-     * @param id id del sensore da aggiornare
+     * @param id         id del sensore da aggiornare
      * @return sensore aggiornato
      */
     public Sensore update(SensoreDto sensoreDto, Long id) {
@@ -115,24 +115,23 @@ public class SensoreService {
                 sensoreOld.get().setPalestra(palestra);
                 palestra.setSensore(sensoreOld.get());
                 return sensoreRepository.save(sensoreOld.get());
-            }
-            else {
+            } else {
                 throw new ResourceNotFoundException(); // Lancio eccezione se il sensore non esiste
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     /**
-     * @param probe sensore con i campi per filtrare
-     * @param page page da visualizzare
-     * @param size size della pagina
-     * @param sortField campo per ordinare
+     * @param probe         sensore con i campi per filtrare
+     * @param page          page da visualizzare
+     * @param size          size della pagina
+     * @param sortField     campo per ordinare
      * @param sortDirection direzione di ordinamento
      * @return lista di sensori filtrati
      */
-    public ResponseEntity<Page<Sensore>> filter(Sensore probe, Integer page, Integer size, String sortField, String sortDirection){
+    public ResponseEntity<Page<Sensore>> filter(Sensore probe, Integer page, Integer size, String sortField, String sortDirection) {
         Pageable pageable;
 
         // Controllo se il sensore per filtrare è nullo
@@ -160,6 +159,7 @@ public class SensoreService {
     public static void copyNonNullProperties(Object src, Object target) {
         BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
     }
+
     public static String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
         java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();

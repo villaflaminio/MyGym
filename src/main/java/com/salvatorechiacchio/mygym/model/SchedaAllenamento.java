@@ -1,7 +1,6 @@
 package com.salvatorechiacchio.mygym.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,7 +31,7 @@ public class SchedaAllenamento {
 
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     @JsonBackReference(value = "schedaAllenamento")
     private User utente;
 

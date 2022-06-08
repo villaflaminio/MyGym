@@ -12,6 +12,7 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Optional;
 
 /**
@@ -73,7 +74,7 @@ public class EsercizioController {
 
     /**
      * @param esercizioDto Dto contenente i dati dell'esercizio da aggiornare.
-     * @param id Identificativo dell'esercizio da aggiornare.
+     * @param id           Identificativo dell'esercizio da aggiornare.
      * @return L'esercizio aggiornato.
      */
     @Operation(summary = "update", description = "Aggiorna esercizio con identificativo passato")
@@ -83,10 +84,10 @@ public class EsercizioController {
     }
 
     /**
-     * @param probe Dto contenente i dati dell'esercizio da cercare.
-     * @param page Pagina dei risultati.
-     * @param size Numero di risultati per pagina.
-     * @param sortField Campo per ordinare i risultati.
+     * @param probe         Dto contenente i dati dell'esercizio da cercare.
+     * @param page          Pagina dei risultati.
+     * @param size          Numero di risultati per pagina.
+     * @param sortField     Campo per ordinare i risultati.
      * @param sortDirection Direzione di ordinamento.
      * @return I risultati paginati
      */

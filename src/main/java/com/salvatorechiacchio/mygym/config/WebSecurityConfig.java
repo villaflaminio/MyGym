@@ -65,7 +65,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
     // Configure security settings ===========================================================================
 
     @Override
@@ -75,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
 
-              //  .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
+                //  .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
 
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationErrorHandler)
@@ -107,7 +106,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/settingsdesctiption/*").permitAll()
                 .antMatchers("/location/*").permitAll()
                 .antMatchers("/test/*").permitAll()
-
 
 
                 .antMatchers("/api/category/*").hasAuthority("ROLE_SECRETARY")

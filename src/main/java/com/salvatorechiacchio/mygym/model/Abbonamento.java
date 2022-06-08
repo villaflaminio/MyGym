@@ -1,14 +1,12 @@
 package com.salvatorechiacchio.mygym.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 @Getter
@@ -39,7 +37,7 @@ public class Abbonamento {
     private Boolean pagato;
 
     @ManyToOne
-    @JoinColumn(name="utente_id")
+    @JoinColumn(name = "utente_id")
     @JsonBackReference()
     private User utente;
 

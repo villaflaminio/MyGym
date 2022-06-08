@@ -1,10 +1,7 @@
 package com.salvatorechiacchio.mygym.service;
 
-import com.salvatorechiacchio.mygym.model.Abbonamento;
-import com.salvatorechiacchio.mygym.model.dto.EsercizioDto;
 import com.salvatorechiacchio.mygym.model.Esercizio;
-import com.salvatorechiacchio.mygym.model.dto.filter.AbbonamentoDtoFilter;
-import com.salvatorechiacchio.mygym.model.dto.filter.EsercizioDtoFilter;
+import com.salvatorechiacchio.mygym.model.dto.EsercizioDto;
 import com.salvatorechiacchio.mygym.repository.EsercizioRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -44,7 +41,7 @@ public class EsercizioService {
             BeanUtils.copyProperties(esercizioDto, esercizio);
             esercizio.setId(null);
             return esercizioRepository.save(esercizio);
-        }catch (Exception e){ // Se ci sono errori, lancio una eccezione
+        } catch (Exception e) { // Se ci sono errori, lancio una eccezione
             log.error("errore salvataggio esercizio", e);
             throw new RuntimeException(e);
         }
@@ -75,7 +72,7 @@ public class EsercizioService {
 
     /**
      * @param esercizioDto esercizio modificato
-     * @param id id dell'esercizio da modificare
+     * @param id           id dell'esercizio da modificare
      * @return esercizio modificato
      */
     public Esercizio update(EsercizioDto esercizioDto, Long id) {
@@ -94,15 +91,17 @@ public class EsercizioService {
         }
     }
 
-    /**+
-     * @param probe esercizio utilizzato per filtrare
-     * @param page page della paginazione
-     * @param size size della paginazione
-     * @param sortField campo di ordinamento
+    /**
+     * +
+     *
+     * @param probe         esercizio utilizzato per filtrare
+     * @param page          page della paginazione
+     * @param size          size della paginazione
+     * @param sortField     campo di ordinamento
      * @param sortDirection direzione di ordinamento
      * @return lista di esercizi filtrati
      */
-    public ResponseEntity<Page<Esercizio>> filter(Esercizio probe, Integer page, Integer size, String sortField, String sortDirection){
+    public ResponseEntity<Page<Esercizio>> filter(Esercizio probe, Integer page, Integer size, String sortField, String sortDirection) {
         Pageable pageable;
 
         // Controllo se l'esercizio da filtrare è nullo
@@ -138,6 +137,7 @@ public class EsercizioService {
     public static void copyNonNullProperties(Object src, Object target) {
         BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
     }
+
     public static String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
         java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();

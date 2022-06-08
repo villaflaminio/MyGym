@@ -1,8 +1,8 @@
 package com.salvatorechiacchio.mygym.service;
 
 
-import com.salvatorechiacchio.mygym.model.dto.PalestraDto;
 import com.salvatorechiacchio.mygym.model.Palestra;
+import com.salvatorechiacchio.mygym.model.dto.PalestraDto;
 import com.salvatorechiacchio.mygym.repository.PalestraRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -42,7 +42,7 @@ public class PalestraService {
             BeanUtils.copyProperties(palestraDto, palestra);
             palestra.setAbilitato(true);
             return palestraRepository.save(palestra);
-        }catch (Exception e){ // Se ci sono errori, lancio una eccezione
+        } catch (Exception e) { // Se ci sono errori, lancio una eccezione
             log.error("errore salvataggio palestra", e);
             throw new RuntimeException(e);
         }
@@ -75,7 +75,7 @@ public class PalestraService {
 
     /**
      * @param palestraDto palestra aggiornata
-     * @param id id della palestra da aggiornare
+     * @param id          id della palestra da aggiornare
      * @return palestra aggiornata
      */
     public Palestra update(PalestraDto palestraDto, Long id) {
@@ -94,14 +94,14 @@ public class PalestraService {
     }
 
     /**
-     * @param probe oggetto palestra per filtrare le palestre
-     * @param page pagina di risultati
-     * @param size numero di risultati per pagina
-     * @param sortField campo per ordinare i risultati
+     * @param probe         oggetto palestra per filtrare le palestre
+     * @param page          pagina di risultati
+     * @param size          numero di risultati per pagina
+     * @param sortField     campo per ordinare i risultati
      * @param sortDirection direzione di ordinamento
      * @return lista di palestre filtrate
      */
-    public ResponseEntity<Page<Palestra>> filter(Palestra probe, Integer page, Integer size, String sortField, String sortDirection){
+    public ResponseEntity<Page<Palestra>> filter(Palestra probe, Integer page, Integer size, String sortField, String sortDirection) {
         Pageable pageable;
 
         // Controllo se la palestra per filtrare è nulla
@@ -129,6 +129,7 @@ public class PalestraService {
     public static void copyNonNullProperties(Object src, Object target) {
         BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
     }
+
     public static String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
         java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();

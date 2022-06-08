@@ -9,21 +9,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class TestSecurityController {
 
-   @GetMapping("/testUser")
-   public ResponseEntity<String> testUser() {
-      return ResponseEntity.ok("ROLE_USER");
-   }
-   @GetMapping("/testSecretary")
-   public ResponseEntity<String> testSecretary() {
-      return ResponseEntity.ok("ROLE_SECRETARY");
-   }
-   @GetMapping("/testAdminSecretary")
-   public ResponseEntity<String> testAdminSecretary() {
-      return ResponseEntity.ok("ROLE_ADMIN_SECRETARY");
-   }
-   @GetMapping("/testAdmin")
-   public ResponseEntity<String> testAdmin() {
-      return ResponseEntity.ok("ROLE_ADMIN");
-   }
+    @GetMapping("/testUser")
+    public ResponseEntity<String> testUser() {
+        return ResponseEntity.ok("ROLE_USER");
+    }
+
+    @GetMapping("/testSecretary")
+    public ResponseEntity<String> testSecretary() {
+        return ResponseEntity.ok("ROLE_SECRETARY");
+    }
+
+    @GetMapping("/testAdminSecretary")
+    public ResponseEntity<String> testAdminSecretary() {
+        return ResponseEntity.ok("ROLE_ADMIN_SECRETARY");
+    }
+
+    @GetMapping("/testAdmin")
+    public ResponseEntity<String> testAdmin() {
+        return ResponseEntity.ok("ROLE_ADMIN");
+    }
 
 }

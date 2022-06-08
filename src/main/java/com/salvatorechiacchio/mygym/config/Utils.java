@@ -17,13 +17,14 @@ public class Utils {
         try {
             date = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
         } catch (ParseException e) {
-          throw new UtilsException(DATA_WRONG_FORMAT);
+            throw new UtilsException(DATA_WRONG_FORMAT);
         }
         return date;
     }
+
     public static String dateToStringFormatted(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-        return formatter.format(date).toString();
+        return formatter.format(date);
     }
 
 }

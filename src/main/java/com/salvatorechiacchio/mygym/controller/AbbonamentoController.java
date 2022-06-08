@@ -2,27 +2,17 @@ package com.salvatorechiacchio.mygym.controller;
 
 import com.salvatorechiacchio.mygym.model.Abbonamento;
 import com.salvatorechiacchio.mygym.model.dto.AbbonamentoDto;
-import com.salvatorechiacchio.mygym.model.dto.filter.AbbonamentoDtoFilter;
 import com.salvatorechiacchio.mygym.service.AbbonamentoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Controller per la gestione degli abbonamenti.
@@ -81,20 +71,20 @@ public class AbbonamentoController {
 
     /**
      * @param abbonamentoDto Dto contenente i dati dell'abbonamento da aggiornare.
-     * @param id Identificativo dell'abbonamento da aggiornare.
+     * @param id             Identificativo dell'abbonamento da aggiornare.
      * @return L'abbonamento aggiornato.
      */
     @Operation(summary = "update", description = "Aggiorna un abbonamento")
     @PutMapping("/{id}")
-    public ResponseEntity<Abbonamento> update(@RequestBody AbbonamentoDto  abbonamentoDto, @PathVariable("id") Long id) {
-        return ResponseEntity.ok( abbonamentoService.update(abbonamentoDto, id));
+    public ResponseEntity<Abbonamento> update(@RequestBody AbbonamentoDto abbonamentoDto, @PathVariable("id") Long id) {
+        return ResponseEntity.ok(abbonamentoService.update(abbonamentoDto, id));
     }
 
     /**
-     * @param probe Dto contenente i dati dell'abbonamento da filtrare.
-     * @param page Pagina dei risultati.
-     * @param size Numero di risultati per pagina.
-     * @param sortField Campo per ordinare i risultati.
+     * @param probe         Dto contenente i dati dell'abbonamento da filtrare.
+     * @param page          Pagina dei risultati.
+     * @param size          Numero di risultati per pagina.
+     * @param sortField     Campo per ordinare i risultati.
      * @param sortDirection Direzione di ordinamento.
      * @return Lista di abbonamenti filtrati.
      */
