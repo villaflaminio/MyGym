@@ -7,8 +7,10 @@ import com.salvatorechiacchio.mygym.model.dto.UserDTO;
 import com.salvatorechiacchio.mygym.repository.UserRepository;
 import com.salvatorechiacchio.mygym.security.helper.UserHelper;
 import com.salvatorechiacchio.mygym.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -94,8 +96,31 @@ public class UserController {
 
     // =================================================================================================================
 
-    @GetMapping("/user")
+    @GetMapping("/actualUser")
     public ResponseEntity<User> getActualUser() {
         return ResponseEntity.ok(userService.getUserWithAuthorities().get());
+    }
+    @GetMapping("/user")
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(userService.getAll());
+    }
+
+    /**
+     * @param probe         Dto contenente i dati della palestra da filtrare.
+     * @param page          Pagina da visualizzare
+     * @param size          Numero di elementi per pagina
+     * @param sortField     Campo per ordinamento
+     * @param sortDirection Direzione di ordinamento
+     * @return La pagina di risultati della ricerca.
+     */
+    @Operation(summary = "filter", description = "Filtra le palestre")
+    @PostMapping("user/filter")
+    ResponseEntity<Page<User>> filter(
+            @RequestBody(required = false) User probe,
+            @RequestParam(required = false, defaultValue = "0", name = "page") Integer page,
+            @RequestParam(required = false, defaultValue = "10", name = "size") Integer size,
+            @RequestParam(required = false, name = "sortField") String sortField,
+            @RequestParam(required = false, name = "sortDirection") String sortDirection) {
+        return userService.filter(probe, page, size, sortField, sortDirection);
     }
 }

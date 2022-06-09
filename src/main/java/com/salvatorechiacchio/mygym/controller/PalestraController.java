@@ -83,14 +83,14 @@ public class PalestraController {
     }
 
     /**
-     * @param probe         Dto contenente i dati della palestra da filtrare.
+     * @param probe         Dto contenente i dati dell'utente da cercare.
      * @param page          Pagina da visualizzare
      * @param size          Numero di elementi per pagina
      * @param sortField     Campo per ordinamento
      * @param sortDirection Direzione di ordinamento
      * @return La pagina di risultati della ricerca.
      */
-    @Operation(summary = "filter", description = "Filtra le palestre")
+    @Operation(summary = "filter", description = "Filtra gli utenti")
     @PostMapping("/filter")
     ResponseEntity<Page<Palestra>> filter(
             @RequestBody(required = false) Palestra probe,

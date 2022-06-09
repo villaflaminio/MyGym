@@ -1,5 +1,6 @@
 package com.salvatorechiacchio.mygym.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;

@@ -52,7 +52,7 @@ public class User {
     @JsonIgnore
     @Column(name = "activated")
     @NotNull
-    private boolean activated;
+    private Boolean activated;
 
     @OneToMany(mappedBy = "utente")
     private List<Abbonamento> abbonamenti;
