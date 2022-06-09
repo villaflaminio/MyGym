@@ -56,28 +56,28 @@
 ////                .andExpect(MockMvcResultMatchers.status().isCreated());
 ////        Mockito.verify(abbonamentoService, Mockito.times(1)).save(ArgumentMatchers.any(Abbonamento.class));
 ////        Mockito.verifyNoMoreInteractions(abbonamentoService);
-////    }
-////
-////    @Test
-////    public void update() throws Exception {
-////
-////        mockMvc.perform(
-////                        MockMvcRequestBuilders.put(ENDPOINT_URL + "/1")
-////                                .contentType(MediaType.APPLICATION_JSON)
-////                                .content(CustomUtils.asJsonString(Abbonamento.class)))
-////                .andExpect(MockMvcResultMatchers.status().isOk());
-////        Mockito.verify(abbonamentoService, Mockito.times(1)).update(ArgumentMatchers.any(Abbonamento.class), ArgumentMatchers.anyLong());
-////        Mockito.verifyNoMoreInteractions(abbonamentoService);
-////    }
-////
-////    @Test
-////    public void delete() throws Exception {
-////        Mockito.doNothing().when(abbonamentoService).deleteById(ArgumentMatchers.anyLong());
-////        mockMvc.perform(
-////                MockMvcRequestBuilders.delete(ENDPOINT_URL + "/1")
-////                        .contentType(MediaType.APPLICATION_JSON)
-////                        .content(CustomUtils.asJsonString(Abbonamento.class))).andExpect(MockMvcResultMatchers.status().isOk());
-////        Mockito.verify(abbonamentoService, Mockito.times(1)).deleteById(Mockito.anyLong());
-////        Mockito.verifyNoMoreInteractions(abbonamentoService);
-////    }
+//    }
+//
+//    @Test
+//    public void update() throws Exception {
+//
+//        mockMvc.perform(
+//                        MockMvcRequestBuilders.put(ENDPOINT_URL + "/1")
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                                .content(CustomUtils.asJsonString(Abbonamento.class)))
+//                .andExpect(MockMvcResultMatchers.status().isOk());
+//        Mockito.verify(abbonamentoService, Mockito.times(1)).update(ArgumentMatchers.any(Abbonamento.class), ArgumentMatchers.anyLong());
+//        Mockito.verifyNoMoreInteractions(abbonamentoService);
+//    }
+//
+//    @Test
+//    public void delete() throws Exception {
+//        Mockito.doNothing().when(abbonamentoService).deleteById(ArgumentMatchers.anyLong());
+//        mockMvc.perform(
+//                MockMvcRequestBuilders.delete(ENDPOINT_URL + "/1")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(CustomUtils.asJsonString(Abbonamento.class))).andExpect(MockMvcResultMatchers.status().isOk());
+//        Mockito.verify(abbonamentoService, Mockito.times(1)).deleteById(Mockito.anyLong());
+//        Mockito.verifyNoMoreInteractions(abbonamentoService);
+//    }
 //}
