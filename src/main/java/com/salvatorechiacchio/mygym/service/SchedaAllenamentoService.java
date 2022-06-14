@@ -140,7 +140,7 @@ public class SchedaAllenamentoService {
                 schedaAllenamentoOld.setId(id);
                   schedaAllenamentoRepository.save(schedaAllenamentoOld);
                 // Salvo la scheda di allenamento
-            return ResponseEntity.ok(schedaAllenamentoOld);
+            return ResponseEntity.ok(schedaAllenamentoRepository.findById(id).get());
 
         } catch (Exception e) {
             log.error("errore aggiornamento scheda allenamento", e); // Se ci sono errori, lancio una eccezione
