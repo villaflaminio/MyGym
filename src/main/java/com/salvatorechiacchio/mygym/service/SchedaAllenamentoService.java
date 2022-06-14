@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -125,31 +124,27 @@ public class SchedaAllenamentoService {
      * @param id                   id della scheda di allenamento da aggiornare
      * @return scheda di allenamento aggiornata
      */
-    public SchedaAllenamento update(SchedaAllenamentoDto schedaAllenamentoDto, Long id) {
+    public ResponseEntity<SchedaAllenamento> update(SchedaAllenamentoDto schedaAllenamentoDto, Long id) {
         // Ottengo la scheda di allenamento da aggiornare
-        Optional<SchedaAllenamento> schedaAllenamentoOld = schedaAllenamentoRepository.findById(id);
+        SchedaAllenamento schedaAllenamentoOld = schedaAllenamentoRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         schedaAllenamentoDto.setId(id);
         try {
             // Se la scheda di allenamento esiste, la aggiorno
-            if (schedaAllenamentoOld.isPresent()) {
-                copyNonNullProperties(schedaAllenamentoDto, schedaAllenamentoOld.get());
+                copyNonNullProperties(schedaAllenamentoDto, schedaAllenamentoOld);
 
                 // Ottengo utente collegato alla scheda di allenamento
-                User user = userRepository.findById(schedaAllenamentoDto.getIdUtente()).orElseThrow(() -> new Exception("user non trovato"));
-                List<Esercizio> esercizi = esercizioService.getAllByIdList(schedaAllenamentoDto.getIdEsercizi());
-                schedaAllenamentoOld.get().setEsercizi(esercizi);
-                schedaAllenamentoOld.get().setUtente(user);
-                schedaAllenamentoOld.get().setId(id);
 
+                List<Esercizio> esercizi = esercizioService.getAllByIdList(schedaAllenamentoDto.getIdEsercizi());
+                schedaAllenamentoOld.setEsercizi(esercizi);
+                schedaAllenamentoOld.setUtente(schedaAllenamentoOld.getUtente());
+                schedaAllenamentoOld.setId(id);
+                  schedaAllenamentoRepository.save(schedaAllenamentoOld);
                 // Salvo la scheda di allenamento
-                return schedaAllenamentoRepository.save(schedaAllenamentoOld.get());
-            } else {
-                throw new ResourceNotFoundException(); // Se la scheda di allenamento non esiste, lancio una eccezione
-            }
+            return ResponseEntity.ok(schedaAllenamentoOld);
+
         } catch (Exception e) {
             log.error("errore aggiornamento scheda allenamento", e); // Se ci sono errori, lancio una eccezione
             throw new RuntimeException(e);
-
         }
     }
 
