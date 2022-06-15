@@ -17,16 +17,14 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Builder
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+
 public class Esercizio {
     @Id
     @GeneratedValue
     private Long id;
 
     @ManyToMany(mappedBy = "esercizi")
-   // @JsonBackReference(value = "schedeAllenamento")
+    @JsonBackReference(value = "schedeAllenamento")
     private List<SchedaAllenamento> schedeAllenamento;
 
     @Column(name = "nome", length = 50)

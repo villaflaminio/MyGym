@@ -27,7 +27,7 @@ public class Sensore {
     private Long id;
 
     @OneToOne(mappedBy = "sensore")
-    //@JsonBackReference(value = "sensore")
+    @JsonBackReference(value = "sensore")
     private Palestra palestra;
 
     @Column(name = "nome", length = 50)

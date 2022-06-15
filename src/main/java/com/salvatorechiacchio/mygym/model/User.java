@@ -22,9 +22,7 @@ import java.util.Set;
 @Entity
 @Table(name = "USER")
 @Builder
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+
 public class User {
 
     @Id

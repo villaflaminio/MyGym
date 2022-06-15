@@ -18,9 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Builder
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+
 public class SchedaAllenamento {
 
     @Id
@@ -37,7 +35,7 @@ public class SchedaAllenamento {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-   // @JsonBackReference(value = "schedaAllenamento")
+    @JsonBackReference(value = "schedaAllenamento")
     private User utente;
 
 
