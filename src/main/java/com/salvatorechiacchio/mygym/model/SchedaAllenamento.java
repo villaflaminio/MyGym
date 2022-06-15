@@ -18,7 +18,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Builder
-
 public class SchedaAllenamento {
 
     @Id

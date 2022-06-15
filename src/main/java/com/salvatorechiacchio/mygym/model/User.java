@@ -22,7 +22,6 @@ import java.util.Set;
 @Entity
 @Table(name = "USER")
 @Builder
-
 public class User {
 
     @Id
