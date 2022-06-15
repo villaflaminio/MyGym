@@ -1,6 +1,8 @@
 package com.salvatorechiacchio.mygym.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,6 +17,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Builder
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Abbonamento {
     @Id
     @GeneratedValue
@@ -38,11 +43,11 @@ public class Abbonamento {
 
     @ManyToOne
     @JoinColumn(name = "utente_id")
-    @JsonBackReference()
+    //@JsonBackReference()
     private User utente;
 
     @ManyToOne
     @JoinColumn()
-    @JsonBackReference(value = "abbonamenti")
+   // @JsonBackReference(value = "abbonamenti")
     private Palestra palestra;
 }

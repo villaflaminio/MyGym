@@ -1,6 +1,8 @@
 package com.salvatorechiacchio.mygym.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
 
@@ -20,6 +22,9 @@ import java.util.Set;
 @Entity
 @Table(name = "USER")
 @Builder
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class User {
 
     @Id
