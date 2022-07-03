@@ -1,5 +1,3 @@
-# MyGym
-
 # ING STFW Project - EITS
 
 [Introduzione](ING%20STFW%20Project%20-%20EITS%20052ee1c7276246c3949a45e80b2bd24d/Introduzione%20beaf6c340ab141fa9ff70a3d83af19fa.md)
@@ -127,9 +125,9 @@ Infine per ogni Interfaccia dell’Area Palestre sono predisposti dei Dialog che
 
 Il Class Diagram mostra le classi che compongono il progetto e come queste si relazionano tra loro
 
-![class_diagram-Eits.jpeg](Class%20Diagram%206d6a32c877924dacb95b5e2569a8fe63/class_diagram-Eits.jpeg)
+![class_diagram-Eits.jpeg](ING%20STFW%20Project%20-%20EITS%20052ee1c7276246c3949a45e80b2bd24d/Class%20Diagram%206d6a32c877924dacb95b5e2569a8fe63/class_diagram-Eits.jpeg)
 
-![2581a32e-af53-4ad4-b635-1f4756961212.jpg](Class%20Diagram%206d6a32c877924dacb95b5e2569a8fe63/2581a32e-af53-4ad4-b635-1f4756961212.jpg)
+![2581a32e-af53-4ad4-b635-1f4756961212.jpg](ING%20STFW%20Project%20-%20EITS%20052ee1c7276246c3949a45e80b2bd24d/Class%20Diagram%206d6a32c877924dacb95b5e2569a8fe63/2581a32e-af53-4ad4-b635-1f4756961212.jpg)
 
 La classe **User** contiene le informazioni degli utenti della piattaforma, ad ogni **User** è associato una List di **Abbonamento** e **SchedaAllenamento**.
 
@@ -145,7 +143,7 @@ La classe **Sensore** contiene le informazioni al sensore presente in palestra, 
 
 Mentre per le relazioni tra le varie classi:
 
-![WhatsApp Image 2022-06-19 at 18.23.13.jpeg](Class%20Diagram%206d6a32c877924dacb95b5e2569a8fe63/WhatsApp_Image_2022-06-19_at_18.23.13.jpeg)
+![WhatsApp Image 2022-06-19 at 18.23.13.jpeg](ING%20STFW%20Project%20-%20EITS%20052ee1c7276246c3949a45e80b2bd24d/Class%20Diagram%206d6a32c877924dacb95b5e2569a8fe63/WhatsApp_Image_2022-06-19_at_18.23.13.jpeg)
 
 [Sequence Diagram](ING%20STFW%20Project%20-%20EITS%20052ee1c7276246c3949a45e80b2bd24d/Sequence%20Diagram%205a8b473b42e64f4587833789b741fe86.md)
 
@@ -159,11 +157,11 @@ Quest’ultimo, se le credenziali sono valide, risponderà con un idToken e l’
 
 Mentre se le credenziali non sono valide il Back-End risponderà con un Errore, di conseguenza all’User verrà mostratp un messaggio di errore.
 
-![sequence diagram.png](Sequence%20Diagram%205a8b473b42e64f4587833789b741fe86/sequence_diagram.png)
+![sequence diagram.png](ING%20STFW%20Project%20-%20EITS%20052ee1c7276246c3949a45e80b2bd24d/Sequence%20Diagram%205a8b473b42e64f4587833789b741fe86/sequence_diagram.png)
 
 Come secondo esempio di Sequence Diagram viene illustrato in figura come avviene l’inserimento  di una nuova palestra da parte di un utente Admin
 
-![Untitled](Sequence%20Diagram%205a8b473b42e64f4587833789b741fe86/Untitled.png)
+![Untitled](ING%20STFW%20Project%20-%20EITS%20052ee1c7276246c3949a45e80b2bd24d/Sequence%20Diagram%205a8b473b42e64f4587833789b741fe86/Untitled.png)
 
 [Use Case Diagram](ING%20STFW%20Project%20-%20EITS%20052ee1c7276246c3949a45e80b2bd24d/Use%20Case%20Diagram%207a0eb8fe4b6c4fca9811960eb1d4427a.md)
 # Use Case Diagram
@@ -172,11 +170,11 @@ Lo Use Case Diagram permette di visualizzare graficamente il comportamento del s
 
 L’attore coinvolto nello Use Case in figura è User, ovvero l’atleta iscritto in palestra, in dettaglio le funzionalità a cui può accedere
 
-![Untitled](Use%20Case%20Diagram%207a0eb8fe4b6c4fca9811960eb1d4427a/Untitled.png)
+![Untitled](ING%20STFW%20Project%20-%20EITS%20052ee1c7276246c3949a45e80b2bd24d/Use%20Case%20Diagram%207a0eb8fe4b6c4fca9811960eb1d4427a/Untitled.png)
 
 L’attore coinvolto in questo secondo Use Case è Admin, ovvero il gestore di palestre, in dettaglio le funzionalità a cui può accedere
 
-![Untitled](Use%20Case%20Diagram%207a0eb8fe4b6c4fca9811960eb1d4427a/Untitled%201.png)
+![Untitled](ING%20STFW%20Project%20-%20EITS%20052ee1c7276246c3949a45e80b2bd24d/Use%20Case%20Diagram%207a0eb8fe4b6c4fca9811960eb1d4427a/Untitled%201.png)
 
 [Testing](ING%20STFW%20Project%20-%20EITS%20052ee1c7276246c3949a45e80b2bd24d/Testing%20c073e54ba7354bd1ad319521a27fb440.md)
 
