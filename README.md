@@ -199,8 +199,6 @@ Per esperienza personale Electron mi ha colpito molto per la sua semplicità, po
 
 [Creazione Desktop Applcation ](Conclusioni%208bcd1d9a1a9f434983c0016954d94671/Creazione%20Desktop%20Applcation%2072940f1fe83844579697fe816ff69110.md)
 
-gitHub Front-End: ‣
-
 gitHub Back-End: https://github.com/salvatoreChiacchio0/ing-sftw-eits-be
 
 gitHub Front-End: https://github.com/salvatoreChiacchio0/ing-sftw-eits-fe
