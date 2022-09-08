@@ -25,10 +25,6 @@ public class Palestra {
     private List<Abbonamento> abbonamenti;
 
 
-    @OneToOne
-    @JoinColumn(name = "sensore_id", referencedColumnName = "id")
-    private Sensore sensore;
-
 
     @Column(name = "nome", length = 50)
     @NotNull

@@ -61,14 +61,6 @@ public class User {
     @OneToMany(mappedBy = "utente")
     private List<SchedaAllenamento> schedeAllenamento;
 
-    @ManyToMany
-    @JoinTable(
-            name = "USER_AUTHORITY",
-            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_NAME", referencedColumnName = "NAME")})
-    @BatchSize(size = 20)
-    private Set<Authority> authorities = new HashSet<>();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
