@@ -20,7 +20,6 @@ public class Abbonamento {
     @GeneratedValue
     private Long id;
 
-
     @Column(name = "nome", length = 50)
     @NotNull
     @Size(min = 1, max = 50)
