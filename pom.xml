@@ -8,7 +8,7 @@
         <version>2.7.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.salvatorechiacchio</groupId>
+    <groupId>org.elis.coreproject</groupId>
     <artifactId>MyGym</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>MyGym</name>
@@ -18,7 +18,6 @@
         <java.version>17</java.version>
         <jjwt.version>0.10.6</jjwt.version>
         <dockerfile-maven-plugin.version>1.4.12</dockerfile-maven-plugin.version>
-
 
     </properties>
     <dependencies>
